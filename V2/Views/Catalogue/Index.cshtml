@@ -1,0 +1,287 @@
+﻿@model IEnumerable<V2.Models.Catalogue.CatalogueHeader>
+@{
+    ViewData["Title"] = "Create";
+}
+
+@if (Model != null && Model.Count() > 0)
+{
+    <style>
+        .view-product {
+            width: 100px;
+            height: 40px;
+            background: #df4134 0% 0% no-repeat padding-box;
+            border-radius: 20px;
+            opacity: 1;
+            border: 1px solid #df4134;
+            color: #fff;
+        }
+
+        #datatable > thead th {
+            vertical-align: middle !important;
+        }
+
+        .expandButton {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            position: relative;
+            /* opacity: 0.1; */
+            background: rgb(223, 65, 52, 0.1) 0% 0% no-repeat padding-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+            .expandButton .plus_icon {
+                position: absolute !important;
+                top: 30%;
+                left: 30%;
+            }
+
+        .fa-plus:before {
+            color: #df4134;
+        }
+
+        .fa-minus:before {
+            color: rgb(223, 65, 52);
+        }
+
+        .hiddenRow {
+            padding: 0 !important;
+        }
+
+        @*.cardScrollWrapper {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 400px;
+        }*@
+        .card-body {
+            padding: 0.5rem;
+        }
+
+        #datatable > thead tr th:nth-child(2) {
+            @*background-color: #de4132;*@
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            text-align: center;
+            color: #fff;
+            margin-bottom: unset;
+            padding-bottom: unset;
+            width: 12px;
+        }
+
+        #datatable > tbody > tr > td:nth-child(2) {
+            @*background-color: #de4132;*@
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            text-align: center;
+            color: #fff !important;
+            margin-top: unset;
+            padding-top: unset;
+        }
+
+        .table-responsive table tbody tr td {
+            padding: 0.5rem !important;
+        }
+    </style>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-box">
+                    <div class="float-right">
+                        <a asp-action="Create" asp-controller="Catalogue">
+                            <button type="submit"class="btn-addmore">
+                                Add Catalogue
+                            </button>
+                        </a>
+                    </div>
+                    <h4 class="page-title">Catalogue</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card profile-card">
+                    <div class="card-body p-0">
+                        <div class="media p-3 align-items-center">
+                            <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                                <img src="~/assets/images/total-products.svg" alt="" width="30%" />
+                                <div>
+                                    <h5 class="pro-title">Total Catalogues</h5>
+                                    <p style="font-size: 20px; font-weight: bold; text-align:center">@(Model.Count())</p>
+                                </div>
+                            </div>
+
+                            <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                                <img src="~/assets/images/approved-products.svg" alt=""  width="30%" />
+                                <div>
+                                    <h5 class="pro-title">Approved</h5>
+                                    <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 3).Count()</p>
+                                </div>
+                            </div>
+
+                            <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                                <img src="~/assets/images/unapproved-products.svg" alt="" width="30%" />
+                                <div>
+                                    <h5 class="pro-title">Unapproved</h5>
+                                    <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 4).Count()</p>
+                                </div>
+                            </div>
+
+                            <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                                <img src="~/assets/images/pending-products.svg" alt="" width="30%" />
+                                <div>
+                                    <h5 class="pro-title">Pending</h5>
+                                    <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 2).Count()</p>
+                                </div>
+                            </div>
+
+                            <div class="media-body d-flex align-items-center"
+                                 style="gap: 1rem">
+                                <img src="~/assets/images/draft.svg" alt="" width="30%" />
+                                <div>
+                                    <h5 class="pro-title">Draft</h5>
+                                    <p style="font-size: 20px; font-weight: bold; text-align:center">@Model.Where(c=>c.Status.StatusId == 1).Count()</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 tableCard">
+                <div class="cardScrollWrapper">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card">
+                            <div class="card-body">
+                                <table id="datatable" class="table table-sm dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0;width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th data-toggle="collapse"
+                                                data-target="#tab_@item.CatalogueHeaderId"
+                                                width="5%"
+                                                class="accordion-toggle expand">
+                                                <span class="expandButton">
+                                                    <i class="fas fa-plus plus_icon"></i>
+                                                </span>
+                                            </th>
+                                            <th width="10%">
+                                                <div class="d-flex flex-column align-items-center p-3" style="background-color: #de4132; border-radius: 5px;width: max-content;">
+                                                    <span>PPT No.</span>
+                                                    <span>
+                                                        #@item.CatalogueHeaderId
+                                                    </span>
+                                                </div>
+                                            </th>
+                                            <th width="25%">
+                                                <div class="d-flex flex-column align-items-center">
+                                                <span>Date Submitted</span>
+                                                <span>
+                                                @item.UploadDate.ToString("dd/MM/yyyy HH:mm")
+                                                </span>
+                                                </div>
+                                            </th>
+                                            <th width="20%">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <span>Status</span>
+                                                    <span class="badge badge-md badge-soft-@(item.Status.StatusId == 4 ? "danger" : item.Status.StatusId == 3 ? "success" : item.Status.StatusId == 2 ? "pink" : "secondary")">@item.Status.StatusName</span>
+                                                </div>
+                                            </th>
+                                            <th width="20%">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <span>Total Products</span>
+                                                    <span>@item.TotalProduct</span>
+                                                </div>
+                                            </th>
+                                            <th width="20%">
+                                                <a asp-action="Create" asp-controller="Catalogue" asp-route-id="@item.CatalogueHeaderId">
+                                                    <button type="button" class="view-product">
+                                                        View
+                                                    </button>
+                                                </a>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="12" class="hiddenRow">
+                                                <div class="accordian-body collapse" id="tab_@item.CatalogueHeaderId">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered nowrap">
+                                                            <thead>
+                                                                <tr class="info">
+                                                                    <th>Product</th>
+                                                                    <th>Division</th>
+                                                                    <th>SubDivision</th>
+                                                                    <th>Category</th>
+                                                                    <th>No. of Piece</th>
+                                                                    <th>Price/Piece</th>
+                                                                    <th>Status</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @if (item.CatalogueLines != null && item.CatalogueLines.Count > 0)
+                                                                {
+                                                                    foreach (var prod in item.CatalogueLines)
+                                                                    {
+                                                                <tr data-toggle="collapse"
+                                                                    class="accordion-toggle">
+                                                                    <td>
+                                                                        #@prod.ProductCode-@prod.ProductName <br />
+                                                                    </td>
+                                                                    <td>@prod.Division.DivisionName</td>
+                                                                    <td>@prod.SubDivision.SubDivisionName</td>
+                                                                    <td>@prod.MajorCategory.MajorCategoryName</td>
+                                                                    <td>@prod.NoOfPiece</td>
+                                                                    <td>@prod.PricePerPiece</td>
+                                                                    <td>
+                                                                        <span class="badge badge-md badge-soft-@(prod.Status.StatusId == 4 ? "danger" : prod.Status.StatusId == 3 ? "success" : prod.Status.StatusId == 2 ? "pink" : "secondary")">@prod.Status.StatusName</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <a asp-action="Detail" asp-controller="Catalogue" asp-route-catalogueHead="@item.CatalogueHeaderId" asp-route-lineId="@prod.CatalogueLinesId" asp-route-lMainCall="true">
+                                                                            <button type="button"
+                                                                                    class="view-product">
+                                                                                View
+                                                                            </button>
+                                                                        </a>
+
+                                                                    </td>
+                                                                </tr>
+                                                                    }
+                                                                }
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <partial name="_BlankCatalogue" />
+}
+
+@section Scripts{ 
+    <script type="text/javascript">
+      $(".expand").click(function () {
+        $(this).find("i").toggleClass("fas fa-plus fas fa-minus");
+      });
+    </script>
+}

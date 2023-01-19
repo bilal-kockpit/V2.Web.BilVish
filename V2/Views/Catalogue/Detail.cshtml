@@ -1,0 +1,464 @@
+﻿@using Microsoft.AspNetCore.Http;
+@using V2.Models.Master;
+@using System.Linq;
+@model V2.Models.Catalogue.CatalogueHeader
+@{
+    ViewData["Title"] = "Detail";
+    var catalogueLine = Model.CatalogueLines.Where(c => c.CatalogueLinesId == ViewBag.LineId).FirstOrDefault();
+    var sizeList = (List<Size>)ViewBag.SizeList;
+}
+
+<style>
+
+    .backBtn {
+        width: 60px;
+        height: 30px;
+        background: rgba(116, 147, 168, 0.12);
+        border-radius: 5px;
+        font-size: 12px;
+        letter-spacing: 0px;
+        color: #7493a8;
+        border: 1px solid rgba(116, 147, 168, 0.12);
+        opacity: 1;
+    }
+
+    .card-body {
+        width: calc(100vw - 322px);
+        padding:1.25rem !important;
+    }
+
+    .badge {
+        font-size: 12px !important;
+        line-height: 24px;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    .left-sidenav-menu li.mm-active > a {
+        color: #fff;
+        background: unset;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 4px;
+    }
+
+        .left-sidenav-menu li.mm-active > a > span {
+            color: #de4132;
+            font-weight: 600 !important;
+        }
+
+        .left-sidenav-menu li.mm-active > a > img:nth-child(1) {
+            display: none !important;
+        }
+
+        .left-sidenav-menu li.mm-active > a > img:nth-child(2) {
+            display: block !important;
+        }
+
+    .left-sidenav-menu li > a > img:nth-child(1) {
+        display: block;
+    }
+
+    .left-sidenav-menu li > a > img:nth-child(2) {
+        display: none;
+    }
+
+    .vendor-detail-header {
+        background: url(./../assets/images/vendor-background.png);
+        height: 115px;
+        background-size: 100% 100%;
+    }
+
+    .vendor-details-wrapper {
+        display: flex;
+        justify-content: space-between;
+        width: 25%;
+    }
+
+    .vendor-name h3 {
+        color: #ffffff;
+    }
+
+    .vendor-details p {
+        font-size: 10px;
+        margin-bottom: 0%;
+        color: #ffffff;
+    }
+
+    .vendor-details h5 {
+        margin-top: 0.5rem;
+        font-size: 12px;
+        color: #ffffff;
+    }
+
+    .details h5 {
+        margin: 0%;
+        font-size: 12px;
+        color: #7493a8;
+        font-weight: 600;
+    }
+
+    .details p {
+        font-size: 13px;
+        font-weight: bold;
+        color: #383d5a;
+    }
+
+    .vendor-product-small-images {
+        overflow: hidden;
+        margin: 0.5rem 0rem;
+    }
+
+    .product-image-wrapper {
+        position: relative;
+        /* overflow: hidden; */
+        margin-top:8px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .productImages {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        transition: transform 0.5s linear;
+    }
+
+    .product-images {
+        width: 92px;
+        height: 80px;
+        /* box-shadow: 0px 0px 8px #00000029; */
+        border-radius: 10px;
+        cursor: pointer;
+        object-fit: cover;
+        margin-right: 6px;
+    }
+
+    .page-title-box {
+        padding: 15px 0;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .previous-wrapper {
+        position: absolute;
+        left: 2px;
+        top: 32px;
+        cursor: pointer;
+        z-index: 100000;
+    }
+
+    .next-wrapper {
+        position: absolute;
+        right: -10px;
+        top: 32px;
+        cursor: pointer;
+        z-index: 100000;
+    }
+
+    .line {
+        width: 1px;
+        height: 35px;
+        opacity: 0.5;
+        z-index: 100000000;
+        background: #d9655a;
+        margin-top: 4px;
+    }
+
+    .product-image-main img {
+        height: 215px;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    @@media screen and (min-width: 1200px) {
+        .card-body {
+            width: calc(100vw - 322px);
+        }
+    }
+</style>
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right"></div>
+                <a asp-action="@((bool)ViewBag.MainCall ? "Index" : "Create")" asp-controller="Catalogue" asp-route-Id="@Model.CatalogueHeaderId">
+                    <button class="backBtn">
+                        <img src="~/assets/images/backBtn.svg" alt="" />
+                        Back
+                    </button>
+                </a>
+            </div>
+            <!--end page-title-box-->
+        </div>
+        <!--end col-->
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="col-12 tableCard">
+            <div class="card">
+                <div class="card-body">
+                    <div class="vendor-detail-header">
+                        <div class="row justify-content-end">
+                            <div class="col-md-10">
+                                <div class="vendor-name">
+                                    <h3>PPT No. #@Model.CatalogueHeaderId</h3>
+                                </div>
+                                <div class="vendor-details-wrapper">
+                                    @*<div class="vendor-details">
+                                        <p>PPT No.</p>
+                                        <h5>#@Model.CatalogueHeaderId</h5>
+                                    </div>*@                                    
+
+                                    <div class="vendor-details">
+                                        <p>Product Code</p>
+                                        <h5>@catalogueLine.ProductCode</h5>
+                                    </div>
+
+                                    <div class="line"></div>
+
+                                    <div class="vendor-details">
+                                        <p>Product Name</p>
+                                        <h5>@catalogueLine.ProductName</h5>
+                                    </div>
+
+                                    @*<div class="line"></div>
+
+        <div class="vendor-details">
+            <p>City</p>
+            <h5>Delhi, IN</h5>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="vendor-details">
+            <p>Date Submitted</p>
+            <h5>@Model.CreatedOn</h5>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="vendor-details">
+            <p>Total Catalog</p>
+            <h5>@Model.TotalProduct</h5>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="vendor-details">
+            <p>Mobile</p>
+            <h5>+91-9724726354</h5>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="vendor-details">
+            <p>Email</p>
+            <h5>@((string)Context.Session.GetString("EMAIL"))</h5>
+        </div>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vendor-product-detail-wrapper">
+                        <div class="row mt-3">
+                            <div class="col-lg-4">
+                                @{
+                                    var catalogueImages = catalogueLine.CatalogueLineImages;
+                                    <div class="product-image-main">
+                                        <img src="@(ViewBag.ImageDomain + catalogueImages[0].ProductImage.Replace("\\", "/"))"
+                                             alt=""
+                                             width="100%"
+                                             id="mainImage" />
+                                    </div>
+                                    <div class="vendor-product-small-images">
+                                        <div class="product-image-wrapper">
+                                            <div class="previous-wrapper" onclick="previous()">
+                                                <img src="~/assets/images/previous.svg"
+                                                     alt=""
+                                                     width="60%" />
+                                            </div>
+
+                                            <div class="next-wrapper" onclick="next()">
+                                                <img src="~/assets/images/next.svg"
+                                                     alt=""
+                                                     width="60%" />
+                                            </div>
+                                            <div class="productImages">
+                                                @foreach (var img in catalogueImages)
+                                                {
+                                                    <img src="@(ViewBag.ImageDomain + img.ProductImage.Replace("\\", "/"))"
+                                                         alt=""
+                                                         class="product-images"
+                                                         width="100%"
+                                                         id="secondaryImage" />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-md-3 details">
+                                        <h5>Division</h5>
+                                        <p>@catalogueLine.Division.DivisionName</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Sub-Division</h5>
+                                        <p>@catalogueLine.SubDivision.SubDivisionName</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Major Category</h5>
+                                        <p>@catalogueLine.MajorCategory.MajorCategoryName</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Size</h5>
+                                            @foreach (var sizeId in catalogueLine.Size.Split(",").ToList())
+                                            {
+                                                var sizeName = sizeList.Where(c=>c.SizeId == sizeId).FirstOrDefault().SizeName;
+                                                <span class="badge badge-info">@sizeName</span>
+                                            }
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-3 details">
+                                        <h5>Color</h5>
+                                        @foreach (var color in catalogueLine.Color.Split(",").ToList())
+                                        {
+                                            <span class="dot" style="background-color:@color"></span>
+                                        }
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>No. of Piece</h5>
+                                        <p>@catalogueLine.NoOfPiece</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>No. of Size</h5>
+                                        <p>@catalogueLine.NoOfSize</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>No. of Color</h5>
+                                        <p>@catalogueLine.NoOfColor</p>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-3 details">
+                                        <h5>No. of Print </h5>
+                                        <p>@catalogueLine.NoOfPrint</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>VND-DZN-No.</h5>
+                                        <p>@catalogueLine.VendorDesignNo</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Yarn</h5>
+                                        <p>@catalogueLine.Yarn</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Weave-1</h5>
+                                        <p>@catalogueLine.Weave1</p>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-3">
+                                    <div class="col-md-3 details">
+                                        <h5>VND-ALV-QTY</h5>
+                                        <p>@catalogueLine.AvailableQty</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Price/Piece</h5>
+                                        <p>@catalogueLine.PricePerPiece</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Net Rate</h5>
+                                        <p>@catalogueLine.NetRate</p>
+                                    </div>
+
+                                    <div class="col-md-3 details">
+                                        <h5>Approval Status</h5>
+                                        <p>
+                                            <span class="badge badge-md badge-soft-@(catalogueLine.Status.StatusId == 4 ? "danger" : catalogueLine.Status.StatusId == 3 ? "success" : catalogueLine.Status.StatusId == 2 ? "pink" : "secondary")">@catalogueLine.Status.StatusName</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        let index = 1;
+        function previous() {
+            let imageWrapper = document.querySelector(".productImages");
+            let transformValue =
+                document.querySelector(".productImages").style.transform;
+            transformValue = transformValue.split("(")[1].split("px")[0];
+            transformValue = Number(transformValue);
+            if (transformValue < 0) {
+                transformValue = transformValue + 98;
+                imageWrapper.style.transform = `translateX(${transformValue}px)`;
+                console.log(transformValue);
+                index--;
+            }
+
+            console.log(transformValue);
+        }
+
+        function next() {
+            let next = 98 * index;
+            let imageWrapper = document.querySelector(".productImages");
+            let imagelength = imageWrapper.querySelectorAll("img").length;
+            console.log(imagelength);
+            if (imagelength > 3) {
+          imageWrapper.style.transform = `translateX(-${next}px)`;
+          if (index >= imagelength - 3) {
+            index = imagelength - 3;
+          } else {
+            index++;
+          }
+        }
+            // console.log(index);
+   }
+    </script>
+    <script  type="text/javascript">
+        let mainImage = document.getElementById("mainImage");
+        let secondaryImage = document.querySelectorAll("#secondaryImage");
+
+        secondaryImage.forEach((img) => {
+            img.addEventListener("click", () => {
+                //   let curElem = this;
+                mainImage.src = img.src;
+                console.log(mainImage.src);
+            });
+        });
+    </script>
+}

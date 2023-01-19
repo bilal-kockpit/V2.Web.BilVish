@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="54" viewBox="0 0 53 54">
+  <g id="Group_25" data-name="Group 25" transform="translate(2981 3027.969)">
+    <g id="Rectangle_71" data-name="Rectangle 71" transform="translate(-2981 -3027.969)" fill="#df4134" stroke="#ffaea8" stroke-width="2">
+      <rect width="53" height="54" rx="6" stroke="none"/>
+      <rect x="1" y="1" width="51" height="52" rx="5" fill="none"/>
+    </g>
+    <g id="Group_83" data-name="Group 83" transform="translate(-11412.168 -2920.471)">
+      <path id="Subtraction_2" data-name="Subtraction 2" d="M10.95,25a.925.925,0,0,1-.469-.13L.47,19.094A.917.917,0,0,1,0,18.281V6.722a.919.919,0,0,1,.47-.814L10.481.13a.915.915,0,0,1,.939,0L14.837,2.1,9.362,5.263,3.887,8.424v4.708a.459.459,0,0,0,.235.407l2.236,1.291a.465.465,0,0,0,.235.064.471.471,0,0,0,.469-.471V10.257l10.95-6.322L21.43,5.909a.919.919,0,0,1,.47.814v4.386a7,7,0,0,0-6.522,11.48l-3.958,2.285A.929.929,0,0,1,10.95,25Z" transform="translate(8444.336 -93)" fill="#fff"/>
+      <g id="checked" transform="translate(8459 -80.996)">
+        <g id="Group_82" data-name="Group 82">
+          <path id="Path_32" data-name="Path 32" d="M6,0a6,6,0,1,0,6,6A6.006,6.006,0,0,0,6,0ZM9.353,4.421l-3.834,3.8a.59.59,0,0,1-.827.015L2.661,6.39a.61.61,0,0,1-.045-.842.6.6,0,0,1,.842-.03L5.067,6.992,8.5,3.564a.606.606,0,0,1,.857.857Z" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

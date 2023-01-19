@@ -1,0 +1,443 @@
+﻿@model IEnumerable<V2.Models.Catalogue.CatalogueHeader>
+@{
+    ViewData["Title"] = "Catalogues";
+}
+
+<style>
+    .view-product-eye {
+        width: 30px;
+        height: 30px;
+        background: #df4134 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        border: 1px solid #df4134;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* padding: 0.5rem 1rem; */
+    }
+
+    .expandButton {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        position: relative;
+        /* opacity: 0.1; */
+        background: rgb(223, 65, 52, 0.1) 0% 0% no-repeat padding-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+        .expandButton .plus_icon {
+            position: absolute !important;
+            top: 30%;
+            left: 30%;
+        }
+
+    .fa-plus:before {
+        color: #df4134;
+    }
+
+    .fa-minus:before {
+        color: rgb(223, 65, 52);
+    }
+
+    .hiddenRow {
+        padding: 0 !important;
+    }
+
+    .toggleButtonWrapper {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+    }
+
+    .toggleButton {
+        width: 65px;
+        color: #7493a8;
+        border-radius: 0.25rem;
+        opacity: 1;
+        background: #ffffff 0% 0% no-repeat padding-box;
+    }
+
+        .toggleButton:focus {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .toggleButton:hover {
+            color: #7493a8;
+            box-shadow: none;
+        }
+
+        .toggleButton.active {
+            background: #df4134 0% 0% no-repeat padding-box;
+            color: white;
+        }
+
+    .dateInputWrapper input {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+    }
+
+    .majorCategoryDropdown select {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+    }
+
+    .locationDropdown select {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+    }
+
+    .backBtn {
+        width: 60px;
+        height: 30px;
+        background: rgba(116, 147, 168, 0.12);
+        border-radius: 5px;
+        font-size: 12px;
+        letter-spacing: 0px;
+        color: #7493a8;
+        border: 1px solid rgba(116, 147, 168, 0.12);
+        opacity: 1;
+    }
+
+    .page-content-left {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 8px;
+    }
+
+    #datatable > thead tr th:nth-child(2) {
+        background-color: #de4132;
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+        text-align: center;
+        color: #fff;
+        margin-bottom: unset;
+        padding-bottom: unset;
+        width: 12px;
+    }
+
+    #datatable > tbody > tr > td:nth-child(2) {
+        background-color: #de4132;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        text-align: center;
+        color: #fff !important;
+        margin-top: unset;
+        padding-top: unset;
+    }
+
+    .table-responsive table tbody tr td {
+        padding: 0.5rem !important;
+    }
+
+    .card-body {
+        padding: 0.5rem;
+    }
+
+    #datatable > thead tr th {
+        text-align: center !important;
+    }
+
+</style>
+
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right"
+                     style="display: flex; gap: 1rem; align-items: center">
+                    <div class="locationDropdown">
+                        <select name="cars" id="cars">
+                            <option value="option1">option1</option>
+                            <option value="option2">option2</option>
+                            <option value="option3">option</option>
+                            <option value="option4">option</option>
+                        </select>
+                    </div>
+                    <div class="majorCategoryDropdown">
+                        <select name="cars" id="cars">
+                            <option value="option1">option1</option>
+                            <option value="option2">option2</option>
+                            <option value="option3">option</option>
+                            <option value="option4">option</option>
+                        </select>
+                    </div>
+
+                    <div class="dateInputWrapper">
+                        <input type="date" name="" id="" />
+                    </div>
+
+                    <div class="toggleButtonWrapper">
+                        <button class="toggleButton active btn" id="toggleButton">
+                            All
+                        </button>
+                        <button class="toggleButton btn" id="toggleButton">
+                            Open
+                        </button>
+                    </div>
+                </div>
+                <div class="page-content-left">
+                    <a asp-action="Index" asp-controller="CatalogueApproval">
+                        <button class="backBtn">
+                            <img src="~/assets/images/backBtn.svg" alt="" />
+                            Back
+                        </button>
+                    </a>
+                    <h4 class="page-title">Catalogue</h4>
+                </div>
+            </div>
+            <!--end page-title-box-->
+        </div>
+        <!--end col-->
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        @*<div class="col-lg-10">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <div class="media-body d-flex align-items-center"
+                             style="justify-content: space-evenly">
+                            <img src="~/assets/images/total-products.svg"
+                                 alt=""
+                                 width="30%" />
+                            <div>
+                                <h5 class="pro-title">Total Products</h5>
+                                <p style="font-size: 20px; font-weight: bold">@Model.Count()</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="justify-content: space-evenly">
+                            <img src="~/assets/images/approved-products.svg"
+                                 alt=""
+                                 width="30%" />
+                            <div>
+                                <h5 class="pro-title">Approved</h5>
+                                <p style="font-size: 20px; font-weight: bold">@Model.Where(c => c.Status.StatusId == 3).Count()</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="justify-content: space-evenly">
+                            <img src="~/assets/images/unapproved-products.svg"
+                                 alt=""
+                                 width="30%" />
+                            <div>
+                                <h5 class="pro-title">Unapproved</h5>
+                                <p style="font-size: 20px; font-weight: bold">@Model.Where(c => c.Status.StatusId == 4).Count()</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="justify-content: space-evenly">
+                            <img src="~/assets/images/pending-products.svg"
+                                 alt=""
+                                 width="30%" />
+                            <div>
+                                <h5 class="pro-title">Pending</h5>
+                                <p style="font-size: 20px; font-weight: bold">@Model.Where(c => c.Status.StatusId == 2).Count()</p>
+                            </div>
+                        </div>                        
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>*@
+        <div class="col-lg-10">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                            <img src="~/assets/images/total-products.svg" alt="" width="30%" />
+                            <div>
+                                <h5 class="pro-title">Total Catalogues</h5>
+                                <p style="font-size: 20px; font-weight: bold; text-align:center">@(Model.Count())</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                            <img src="~/assets/images/approved-products.svg" alt="" width="30%" />
+                            <div>
+                                <h5 class="pro-title">Approved</h5>
+                                <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 3).Count()</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                            <img src="~/assets/images/unapproved-products.svg" alt="" width="30%" />
+                            <div>
+                                <h5 class="pro-title">Unapproved</h5>
+                                <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 4).Count()</p>
+                            </div>
+                        </div>
+
+                        <div class="media-body d-flex align-items-center"
+                             style="gap: 1rem">
+                            <img src="~/assets/images/pending-products.svg" alt="" width="30%" />
+                            <div>
+                                <h5 class="pro-title">Pending</h5>
+                                <p style="font-size: 20px; font-weight: bold ; text-align:center">@Model.Where(c => c.Status.StatusId == 2).Count()</p>
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+            </div>
+        </div>  
+
+        <div class="col-12 tableCard">
+            <div class="cardScrollWrapper">
+                @foreach (var item in Model)
+                {
+                    <div class="card">
+                        <div class="card-body">
+                            <table id="datatable" class="table table-sm dt-responsive nowrap" style="border-collapse: collapse;border-spacing: 0;width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th data-toggle="collapse"
+                                            data-target="#tab_@item.CatalogueHeaderId"
+                                            class="accordion-toggle expand">
+                                            <span class="expandButton">
+                                                <i class="fas fa-plus plus_icon"></i>
+                                            </span>
+                                        </th>
+                                        <th>PPT No.</th>
+                                        <th>Date Submitted</th>
+                                        <th>Status</th>
+                                        <th>Total Products</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>#@item.CatalogueHeaderId</td>
+                                        <td>@item.UploadDate</td>
+                                        <td>
+                                            <span class="badge badge-md badge-soft-@(item.Status.StatusId == 4 ? "danger" : item.Status.StatusId == 3 ? "success" : item.Status.StatusId == 2 ? "pink" : "secondary")">
+                                                @(item.Status.StatusId == 4 ? "Rejected" : item.Status.StatusId == 3 ? "Approved" : item.Status.StatusId == 2 ? "Pending" : "Draft")
+                                            </span>
+                                        </td>
+                                        <td>@item.TotalProduct</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="12" class="hiddenRow">
+                                            <div class="accordian-body collapse" id="tab_@item.CatalogueHeaderId">
+                                                <div class="table-responsive">
+                                                    <hr />
+                                                    <table class="table table-bordered nowrap">
+                                                        <thead>
+                                                            <tr class="info">
+                                                                <th>Product</th>
+                                                                <th>Division</th>
+                                                                <th>SubDivision</th>
+                                                                <th>Category</th>
+                                                                <th>No.ofPiece</th>
+                                                                <th>Price/Piece</th>
+                                                                <th>Status</th>
+                                                                <th>Actions</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (item.CatalogueLines != null && item.CatalogueLines.Count > 0)
+                                                            {
+                                                                foreach (var prod in item.CatalogueLines)
+                                                                {
+                                                                    <tr data-toggle="collapse"
+                                                                        class="accordion-toggle">
+                                                                        <td>
+                                                                            #@prod.ProductCode-@prod.ProductName <br />
+                                                                        </td>
+                                                                        <td>@prod.Division.DivisionName</td>
+                                                                        <td>@prod.SubDivision.SubDivisionName</td>
+                                                                        <td>@prod.MajorCategory.MajorCategoryName</td>
+                                                                        <td>@prod.NoOfPiece</td>
+                                                                        <td>@prod.PricePerPiece</td>
+                                                                        <td>
+                                                                            <span class="badge badge-md badge-soft-@(prod.Status.StatusId == 4 ? "danger" : prod.Status.StatusId == 3 ? "success" : prod.Status.StatusId == 2 ? "pink" : "secondary")">
+                                                                                @(prod.Status.StatusId == 4 ? "Rejected" : prod.Status.StatusId == 3 ? "Approved" : prod.Status.StatusId == 2 ? "Pending" : "Draft")
+                                                                            </span>
+                                                                        </td>
+                                                                        <td>
+                                                                            <a asp-action="Details" asp-controller="CatalogueApproval" 
+                                                                               asp-route-cHId="@item.CatalogueHeaderId"
+                                                                               asp-route-lId="@prod.CatalogueLinesId"
+                                                                               asp-route-aId="@(prod.CatalogueLinesApprovals.First().CatalogueLinesApprovalId)"
+                                                                               asp-route-vId="@ViewBag.VendorId"
+                                                                               class="view-product-eye">
+                                                                                <img src="~/assets/images/view.svg"
+                                                                                     alt=""
+                                                                                     width="60%" />
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(".expand").click(function () {
+            $(this).find("i").toggleClass("fas fa-plus fas fa-minus");
+        });
+    </script>
+    <script type="text/javascript">
+        const toggleButton = document.querySelectorAll("#toggleButton");
+
+        toggleButton.forEach((button) => {
+            button.addEventListener("click", () => {
+                let currentActiveNavLink = document.querySelector(
+                    ".toggleButton.active"
+                );
+                currentActiveNavLink.classList.remove("active");
+
+                button.classList.add("active");
+            });
+        });
+    </script>
+}

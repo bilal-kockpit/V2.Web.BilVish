@@ -1,0 +1,65 @@
+﻿@model IEnumerable<V2.Models.RBAC.Roles>
+@{
+    ViewData["Title"] = "GetAllRoles";
+}
+
+<h1>Roles</h1>
+
+
+<div class="text-center">
+    <a href="@Url.Action("Role")" class="btn btn-success">Add</a>
+    <a href="@Url.Action("")" class="btn btn-warning">Update</a>
+    <a href="@Url.Action("")" class="btn btn-danger">Delete</a>
+    <input type="search" class="form-control-sm" width="10" placeholder="Enter RoleId"/> <a href="@Url.Action("")" class="btn btn-info">Search</a>
+    <hr />
+</div>
+<br />
+<div class="container list-group">
+<table border="1" class="text-center">
+    <tr>
+        <th>
+            <label>Role</label>
+        </th>
+        <th>
+            <label>Description</label>
+        </th>
+        <th>
+            <label>Is Vendor</label>
+        </th>
+        <th>
+            <label>Isactive</label>
+        </th>
+        <th>
+            <label>Created on</label>
+        </th>
+        <th>
+            <label>Last Updated On</label>
+        </th>
+        <th>
+            <label>Last Updated By</label>
+        </th>
+        <th>
+            <label>Is Deleted</label>
+        </th>
+            <th>
+                <label>Actions</label>
+            </th>
+        
+    </tr>
+    @*     @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.Role </td>
+            <td> @item.Description </td>
+            <td> @item.IsVendor </td>
+            <td> @item.IsActive </td>
+            <td> @item.CreatedOn </td>
+            <td> @item.LastUpdatedOn </td>
+             <td> @item.LastUpdatedBy </td>
+             <td> @item.IsDeleted</td>
+             <td></td>
+        </tr>
+    }*@
+</table>
+</div>
+

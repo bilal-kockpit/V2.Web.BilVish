@@ -1,0 +1,44 @@
+﻿@model IEnumerable<V2.Models.Master.SubDivisions>
+@{
+    ViewData["Title"] = "GetAllSubDivisions";
+}
+
+<h1>Sub Divisions</h1>
+<div class="text-center">
+    <a href="@Url.Action("SubDivision")" class="btn btn-success">Add</a>
+    <a href="@Url.Action("")" class="btn btn-warning">Update</a>
+    <a href="@Url.Action("")" class="btn btn-danger">Delete</a>
+    <input type="search" class="form-control-sm" width="10" placeholder="Search here"/> <a href="@Url.Action("")" class="btn btn-info">Search</a>
+    <hr />
+</div>
+
+
+@*<div class="text-right">
+    <a href="@Url.Action("CatalogueUpload")" class="btn btn-danger">Add More</a>
+</div>*@
+<br />
+<div class="container list-group">
+    <table border="1" class="text-center">
+    <tr>
+        <th>
+            <label>Sub Division</label>
+        </th>
+        <th>
+            <label>Description</label>
+        </th>
+
+            <th>
+                <label>Actions</label>
+            </th>
+
+    </tr>
+   @*  @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.SubDivision </td>
+            <td> @item.Description </td>
+
+        </tr>
+    }*@
+</table>
+</div>

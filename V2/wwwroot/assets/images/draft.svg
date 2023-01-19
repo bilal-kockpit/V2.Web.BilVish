@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="65" height="66" viewBox="0 0 65 66">
+  <g id="Group_180" data-name="Group 180" transform="translate(2981 3027.969)">
+    <g id="Rectangle_71" data-name="Rectangle 71" transform="translate(-2981 -3027.969)" fill="#df4134" stroke="#ffaea8" stroke-width="2">
+      <rect width="65" height="66" rx="6" stroke="none"/>
+      <rect x="1" y="1" width="63" height="64" rx="5" fill="none"/>
+    </g>
+    <g id="Group_85" data-name="Group 85" transform="translate(-2964.905 -3010.249)">
+      <path id="Subtraction_2" data-name="Subtraction 2" d="M13.383,30.56a1.131,1.131,0,0,1-.573-.158L.574,23.338A1.12,1.12,0,0,1,0,22.343V8.216a1.123,1.123,0,0,1,.574-.994L12.809.158a1.118,1.118,0,0,1,1.147,0L18.133,2.57,11.442,6.433,4.751,10.3V16.05a.562.562,0,0,0,.287.5L7.77,18.125a.568.568,0,0,0,.288.078.575.575,0,0,0,.574-.576V12.537L22.015,4.81l4.177,2.411a1.123,1.123,0,0,1,.574.994v5.361a8.557,8.557,0,0,0-7.971,14.031L13.957,30.4A1.135,1.135,0,0,1,13.383,30.56Z" transform="translate(0 0)" fill="#fff"/>
+      <g id="exclmation_mark" transform="translate(17.92 14.669)">
+        <path id="Path_34" data-name="Path 34" d="M9.333,2a7.333,7.333,0,1,0,7.333,7.333A7.342,7.342,0,0,0,9.333,2Zm.521,10.787a.744.744,0,1,1,.213-.521A.768.768,0,0,1,9.854,12.787Zm.213-2.721a.733.733,0,1,1-1.467,0V6.4a.733.733,0,1,1,1.467,0Z" transform="translate(-2 -2)" fill="#fff"/>
+      </g>
+      <path id="Path_164" data-name="Path 164" d="M8907.4-240.072l.947-5.977h4.289l1.3,7.013-2.99,2.828Z" transform="translate(-8885.117 263.714)" fill="#fff"/>
+      <circle id="Ellipse_55" data-name="Ellipse 55" cx="1.222" cy="1.222" r="1.222" transform="translate(19.776 20.78)" fill="#df4134"/>
+      <circle id="Ellipse_56" data-name="Ellipse 56" cx="1.222" cy="1.222" r="1.222" transform="translate(24.054 20.78)" fill="#df4134"/>
+      <circle id="Ellipse_57" data-name="Ellipse 57" cx="1.222" cy="1.222" r="1.222" transform="translate(28.332 20.78)" fill="#df4134"/>
+    </g>
+  </g>
+</svg>

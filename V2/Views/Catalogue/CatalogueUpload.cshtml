@@ -1,0 +1,615 @@
+﻿@model Entity.Models.CatalogueMaster
+@{
+    ViewData["Title"] = "CatalogueUpload";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>V2 - Catalogue Upload</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta content="Premium Multipurpose Admin & Dashboard Template"
+          name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="../assets/images/V2_New_Logo.ico" />
+
+    <link href="../../plugins/lightpick/lightpick.css" rel="stylesheet" />
+
+    <!-- App css -->
+    <link href="../assets/css/bootstrap.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="../assets/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="../assets/css/metisMenu.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="../assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        .left-sidenav-menu li:not(:last-child) {
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        .left-sidenav-menu li > a:hover {
+            color: rgba(244, 42, 37, 1);
+        }
+
+        .btn-addmore {
+            background: linear-gradient( 14deg, rgba(244, 42, 37, 1) 0%, rgba(244, 42, 37, 1) );
+            color: #fff;
+            box-shadow: 0 7px 14px 0 rgba(244, 42, 37, 1) 0%;
+            border: none;
+            display: inline-block;
+            font-weight: 400;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.845rem;
+            line-height: 1.8;
+            border-radius: 0.25rem;
+        }
+
+        .metismenu li a {
+            display: flex !important;
+            justify-content: revert !important;
+        }
+
+            .metismenu li a img {
+                width: 20px;
+                margin-right: 1rem;
+            }
+
+        .btn-secondary {
+            color: #fff;
+            background-color: rgba(244, 42, 37, 1);
+            border-color: rgba(244, 42, 37, 1);
+            box-shadow: 0 7px 14px 0 rgba(244 42 37 / 50%);
+        }
+
+        .popup {
+            width: 400px;
+            background: #fff;
+            border-radius: 6px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.1);
+            text-align: center;
+            padding: 0px 30px 30px;
+            color: #333;
+            visibility: hidden;
+            transition: transform 0.4s, top 0.4s;
+        }
+
+        .open-popup {
+            visibility: visible;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup img {
+            width: 100px;
+            margin-top: -50px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .popup h2 {
+            font-size: 38px;
+            font-weight: 500;
+            margin: 30px 0 10px;
+        }
+
+        .popup button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px 0;
+            background: #6fd649;
+            color: #fff;
+            border: 0;
+            outline: none;
+            font-size: 18px;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .thumb-md {
+            height: 32px;
+            width: 32px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .copy-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+        }
+
+            .copy-wrapper span {
+                width: 35px;
+                height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: linear-gradient( 14deg, rgba(244, 42, 37, 1) 0%, rgba(244, 42, 37, 1) );
+                border-top-right-radius: 0.25rem;
+                border-bottom-left-radius: 0.25rem;
+            }
+
+        .fa-copy:before {
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            color: #fff;
+            background: linear-gradient( 14deg, rgba(244, 42, 37, 1) 0%, rgba(244, 42, 37, 1) );
+            border-color: unset;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Bar Start -->
+    <div class="topbar">
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <a href="../projects/projects-index.html" class="logo">
+                <!-- <span>
+                  <img
+                    src="../assets/images/logo-sm.png"
+                    alt="logo-small"
+                    class="logo-sm"
+                  />
+                </span>
+                <span>
+                  <img
+                    src="../assets/images/logo.png"
+                    alt="logo-large"
+                    class="logo-lg logo-light"
+                  />
+                  <img
+                    src="../assets/images/logo-dark.png"
+                    alt="logo-large"
+                    class="logo-lg"
+                  />
+                </span> -->
+                <span>
+                    <img src="https://chatimgs.blob.core.windows.net/customerskockpitwebsite/V2_New_Logo.png"
+                         alt=""
+                         width="55%" />
+                </span>
+            </a>
+        </div>
+        <!--end logo-->
+        <!-- Navbar -->
+        <nav class="navbar-custom">
+            <ul class="list-unstyled topbar-nav float-right mb-0">
+                <!-- <li class="hidden-sm">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light" data-toggle="dropdown" href="javascript: void(0);" role="button" aria-haspopup="false" aria-expanded="false">
+                                English <img src="../assets/images/flags/us_flag.jpg" class="ml-2" height="16" alt=""> <i class="mdi mdi-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="javascript: void(0);"><span> German </span><img src="../assets/images/flags/germany_flag.jpg" alt="" class="ml-2 float-right" height="14"></a>
+                                <a class="dropdown-item" href="javascript: void(0);"><span> Italian </span><img src="../assets/images/flags/italy_flag.jpg" alt="" class="ml-2 float-right" height="14"></a>
+                                <a class="dropdown-item" href="javascript: void(0);"><span> French </span><img src="../assets/images/flags/french_flag.jpg" alt="" class="ml-2 float-right" height="14"></a>
+                                <a class="dropdown-item" href="javascript: void(0);"><span> Spanish </span><img src="../assets/images/flags/spain_flag.jpg" alt="" class="ml-2 float-right" height="14"></a>
+                                <a class="dropdown-item" href="javascript: void(0);"><span> Russian </span><img src="../assets/images/flags/russia_flag.jpg" alt="" class="ml-2 float-right" height="14"></a>
+                            </div>
+                        </li> -->
+
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light nav-user"
+                       data-toggle="dropdown"
+                       href="#"
+                       role="button"
+                       aria-haspopup="false"
+                       aria-expanded="false">
+                        <img src="../assets/images/users/user-1.png"
+                             alt="profile-user"
+                             class="rounded-circle" />
+                        <span class="ml-1 nav-user-name hidden-sm">
+                            Amelia <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> My Wallet</a>
+                        <a class="dropdown-item" href="#"><i class="ti-settings text-muted mr-2"></i> Settings</a>
+                        <a class="dropdown-item" href="#"><i class="ti-lock text-muted mr-2"></i> Lock screen</a>
+                        <div class="dropdown-divider mb-0"></div>
+                        <a class="dropdown-item" href="#"><i class="ti-power-off text-muted mr-2"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!--end topbar-nav-->
+
+            <ul class="list-unstyled topbar-nav mb-0">
+                <li>
+                    <button class="nav-link button-menu-mobile waves-effect waves-light">
+                        <i class="ti-menu nav-icon"></i>
+                    </button>
+                </li>
+                <li class="hide-phone app-search">
+                    <form role="search" class="">
+                        <input type="text"
+                               id="AllCompo"
+                               placeholder="Search..."
+                               class="form-control ui-autocomplete-input"
+                               autocomplete="off" />
+                        <a href=""><i class="fas fa-search"></i></a>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <!-- end navbar-->
+    </div>
+    <!-- Top Bar End -->
+    <!-- Left Sidenav -->
+    <div class="left-sidenav">
+        <ul class="metismenu left-sidenav-menu">
+            <li>
+                <a href="./../dashboard/home.html">
+                    <img src="./../assets/images/home.svg" alt="" /><span>Home</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="./../apps/catalogueList.html">
+                    <img src="./../assets/images/catalogue.svg" alt="" /><span>Catalogue</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);">
+                    <img src="./../assets/images/pendingOrders.svg" alt="" /><span>Pending Orders</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);">
+                    <img src="./../assets/images/income.svg" alt="" /><span>Payment</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="javascript: void(0);">
+                    <img src="./../assets/images/report.svg" alt="" /><span>Reports</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end left-sidenav-->
+
+    <div class="page-wrapper">
+        <!-- Page Content-->
+        <div class="page-content">
+            <div class="container-fluid">
+                <!-- Page-Title -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="page-title-box">
+                            <div class="float-right">
+                                <!-- <ol class="breadcrumb">
+                                  <li class="breadcrumb-item">
+                                    <a href="javascript:void(0);">V2</a>
+                                  </li>
+                                  <li class="breadcrumb-item active">Catalogue Upload</li>
+                                </ol> -->
+                                <button type="submit" class="btn-addmore">Add More</button>
+                            </div>
+                            <h4 class="page-title">Catalogue Upload</h4>
+                        </div>
+                        <!--end page-title-box-->
+                    </div>
+                    <!--end col-->
+                </div>
+                <!-- end page title end breadcrumb -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-wrapper">
+                            <div class="card" id="card">
+                                <div class="card-body" id="card-body">
+                                    <!-- <h4 class="mt-0 header-title">Create Project Form</h4>
+                                    <p class="text-muted mb-3">
+                                      Basic example to create project form styles.
+                                    </p> -->
+
+                                    <div class="copy-wrapper d-flex justify-content-end">
+                                        <span>
+                                            <i class="fas fa-copy"></i>
+                                        </span>
+                                    </div>
+                                    <div class="row justify-content-between">
+                                        <div class="col-lg-3">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projectName">Division</label>
+                                                    <!-- <input
+                                                      type="text"
+                                                      class="form-control"
+                                                      id="productName"
+                                                    /> -->
+                                                    <select name="division"
+                                                            id="division"
+                                                            class="form-control">
+                                                        <option value="option1">option1</option>
+                                                        <option value="option2">option2</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pro-start-date">Color</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="color" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pro-start-date">VND-DZN-No</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="VND-DZN-NO" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">Cost</label>
+                                                    <input type="text" class="form-control" id="cost" />
+                                                </div>
+                                                <!--end form-group-->
+                                            </form>
+                                            <!--end form-->
+                                        </div>
+                                        <!--end col-->
+
+                                        <div class="col-lg-3">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="pro-start-date">Sub Division</label>
+                                                    <!-- <input
+                                                      type="text"
+                                                      class="form-control"
+                                                      id="productCode"
+                                                    /> -->
+                                                    <select name="subdivision"
+                                                            id="subdivision"
+                                                            class="form-control">
+                                                        <option value="option1">option1</option>
+                                                        <option value="option2">option2</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">No. of Print</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="printno" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">Yarn</label>
+                                                    <input type="text" class="form-control" id="yarn" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">Net Rate</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="netRate" />
+                                                </div>
+                                                <!--end form-group-->
+                                            </form>
+                                        </div>
+                                        <!--end col-->
+
+                                        <div class="col-lg-3">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="piece">Major Category</label>
+                                                    <!-- <input
+                                                      type="text"
+                                                      class="form-control"
+                                                      id="piece"
+                                                    /> -->
+                                                    <select name="majorcategory"
+                                                            id="majorcategory"
+                                                            class="form-control">
+                                                        <option value="option1">option1</option>
+                                                        <option value="option2">option2</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pro-start-date">No. of Size</label>
+                                                    <input type="text" class="form-control" id="size" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">Weave-1</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="weave" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="team-leader">Upload Catalogue Images</label>
+                                                    <div class="img-group ml-3">
+                                                        <a class="user-avatar user-avatar-group" href="#">
+                                                            <img src="../assets/images/users/user-3.jpg"
+                                                                 alt="user"
+                                                                 class="thumb-md rounded-circle" />
+                                                        </a>
+                                                        <a class="user-avatar user-avatar-group" href="#">
+                                                            <img src="../assets/images/users/user-5.jpg"
+                                                                 alt="user"
+                                                                 class="thumb-md rounded-circle" />
+                                                        </a>
+                                                        <a class="user-avatar user-avatar-group" href="#">
+                                                            <img src="../assets/images/users/user-10.jpg"
+                                                                 alt="user"
+                                                                 class="thumb-md rounded-circle" />
+                                                        </a>
+                                                        <a class="user-avatar user-avatar-group" href="#">
+                                                            <img src="../assets/images/users/user-4.jpg"
+                                                                 alt="user"
+                                                                 class="thumb-md rounded-circle" />
+                                                        </a>
+                                                    </div>
+                                                    <!--end img-group-->
+                                                    <button type="button"
+                                                            class="btn btn-secondary btn-sm add-member ml-3 px-3">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <input id="add-member"
+                                                           type="file"
+                                                           name="files[]"
+                                                           multiple=""
+                                                           style="display: none" />
+                                                </div>
+                                                <!--end form-group-->
+                                            </form>
+                                            <!--end form-->
+                                        </div>
+                                        <!--end col-->
+
+                                        <div class="col-lg-3">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="pricePiece">Vendor Size</label>
+                                                    <!-- <input
+                                                      type="text"
+                                                      class="form-control"
+                                                      id="pricePiece"
+                                                    /> -->
+                                                    <select name="vendorsize"
+                                                            id="vendorsize"
+                                                            class="form-control">
+                                                        <option value="option1">option1</option>
+                                                        <option value="option2">option2</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">No. of Color</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="colorno" />
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="date">VND ALV-QTY</label>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="VND-ALV-QTY" />
+                                                </div>
+                                                <!--end form-group-->
+                                            </form>
+                                            <!--end form-->
+                                        </div>
+                                        <!--end col-->
+                                    </div>
+                                    <!--end row-->
+                                </div>
+                                <!--end card-body-->
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-addmore" onclick="openPopup()">
+                            Submit
+                        </button>
+                    </div>
+                    <!--end col-->
+                </div>
+                <!--end row-->
+            </div>
+            <!-- container -->
+            <!--end footer-->
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page-wrapper -->
+    <!-- Modal Starts -->
+    <div class="popup" id="popup">
+        <img src="./../assets/images/users/tick.png" alt="" />
+        <h2>Thank You!</h2>
+        <p>Your details has been successfully submitted. Thanks!</p>
+        <button type="button" id="modalButton" onclick="closePopup()">OK</button>
+    </div>
+
+    <!-- jQuery  -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/metismenu.min.js"></script>
+    <script src="../assets/js/waves.js"></script>
+    <script src="../assets/js/feather.min.js"></script>
+    <script src="../assets/js/jquery.slimscroll.min.js"></script>
+    <script src="../assets/js/jquery-ui.min.js"></script>
+
+    <script src="../../plugins/moment/moment.js"></script>
+    <script src="../../plugins/lightpick/lightpick.js"></script>
+    <script src="../assets/pages/jquery.projects_new.init.js"></script>
+
+    <!-- App js -->
+    <script>
+        const BtnAdd = document.querySelector(".btn-addmore");
+        const cardWrapper = document.querySelector(".card-wrapper");
+        const card = document.querySelector(".card");
+
+        BtnAdd.addEventListener("click", AddMore);
+
+        function AddMore() {
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("card");
+            newDiv.innerHTML = card.innerHTML;
+            cardWrapper.appendChild(newDiv);
+        }
+    </script>
+
+    <script>
+        const CopyBtn = document.querySelector(".copy-wrapper");
+        const CardWrapper = document.querySelector(".card-wrapper");
+        const Card = document.querySelector(".card");
+
+        CopyBtn.addEventListener("click", duplicate);
+
+        function duplicate() {
+            const newDiv = document.createElement("div");
+            newDiv.classList.add("card");
+            newDiv.innerHTML = Card.innerHTML;
+            CardWrapper.appendChild(newDiv);
+            console.log("clicked");
+        }
+    </script>
+
+    <script>
+        let popup = document.getElementById("popup");
+
+        function openPopup() {
+            popup.classList.add("open-popup");
+        }
+
+        function closePopup() {
+            let modalButton = (document.getElementById("modalButton").onclick =
+                function () {
+                    location.href = "./../apps/catalogueList.html";
+                });
+            // popup.classList.remove("open-popup");
+        }
+    </script>
+    <script src="../assets/js/app.js"></script>
+    <script>
+        $(".change-avatar").on("click", function () {
+            $("#fileupload").click();
+            return false;
+        });
+        $(".add-member").on("click", function () {
+            $("#add-member").click();
+            return false;
+        });
+    </script>
+</body>
+</html>

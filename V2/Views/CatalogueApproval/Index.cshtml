@@ -1,0 +1,282 @@
+﻿@model IEnumerable<V2.Models.SPResponse.VendorGetForApproval>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+      .view-product-eye {
+        width: 30px;
+        height: 30px;
+        background: #df4134 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        border: 1px solid #df4134;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .expandButton {
+        width: 30px;
+        height: 30px;
+        border-radius: 6px;
+        position: relative;
+        /* opacity: 0.1; */
+        background: rgb(223, 65, 52, 0.1) 0% 0% no-repeat padding-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .expandButton .plus_icon {
+        position: absolute !important;
+        top: 30%;
+        left: 30%;
+      }
+      .fa-plus:before {
+        color: #df4134;
+      }
+      .fa-minus:before {
+        color: rgb(223, 65, 52);
+      }
+      .hiddenRow {
+        padding: 0 !important;
+      }
+      .toggleButtonWrapper {
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+      }
+
+      .toggleButton {
+        width: 65px;
+        color: #7493a8;
+        border-radius: 0.25rem;
+        opacity: 1;
+        background: #ffffff 0% 0% no-repeat padding-box;
+      }
+
+      .toggleButton:focus {
+        outline: none;
+        box-shadow: none;
+      }
+
+      .toggleButton:hover {
+        color: #7493a8;
+        box-shadow: none;
+      }
+
+      .toggleButton.active {
+        background: #df4134 0% 0% no-repeat padding-box;
+        color: white;
+      }
+
+      .dateInputWrapper input {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+      }
+
+      .majorCategoryDropdown select {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+      }
+
+      .locationDropdown select {
+        width: 160px;
+        height: 37px;
+        background: #ffffff 0% 0% no-repeat padding-box;
+        border: 1px solid #b4b4b4;
+        border-radius: 0.25rem;
+        opacity: 1;
+        padding: 0px 10px;
+        color: #7493a8;
+      }
+      .page-title-box {
+        margin-bottom: 1rem;
+      }
+
+    .card-body {
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+    }
+    #datatable > thead tr th:nth-child(1) {
+        background-color: #efefef;
+        border-top-left-radius: 0.25rem;
+        border-top-right-radius: 0.25rem;
+        text-align: center;
+        color: #7493a8;
+        margin-bottom: unset;
+        padding-bottom: unset;
+    }
+
+    #datatable > tbody > tr > td:nth-child(1) {
+        background-color: #efefef;
+        border-bottom-left-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        text-align: center;
+        color: #000000 !important;
+        margin-top: unset;
+        padding-top: unset;
+    }
+  
+
+      @@media screen and (min-width: 1200px) {
+        /* .tableCard .card .card-body {
+          width: 80vw;
+        } */
+        .table-responsive {
+          width: calc(100vw - 384px);
+          padding-left: 59px;
+          /* padding-top: 20px; */
+        }
+        .cardScrollWrapper {
+          overflow-y: auto;
+          height: 72vh;
+        }
+      }
+
+    #datatable > thead tr th {
+        text-align: center !important;
+    }
+
+</style>
+
+
+<input type="hidden" id="hidSelectedCityId" value="@ViewBag.SelectedCityId" />
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right"
+                        style="display: flex; gap: 1rem; align-items: center">
+                    <div class="locationDropdown">
+                        <select id="selCity" asp-items="ViewBag.City">
+                            <option value="">[Select City]</option>
+                        </select>
+                    </div>
+                    @*<div class="majorCategoryDropdown">
+                        <select name="cars" id="cars">
+                            <option value="option1">option1</option>
+                            <option value="option2">option2</option>
+                            <option value="option3">option</option>
+                            <option value="option4">option</option>
+                        </select>
+                    </div>*@
+
+                    <div class="dateInputWrapper">
+                        <input type="date" name="" id="" />
+                    </div>
+
+                    <div class="toggleButtonWrapper">
+                        <button class="toggleButton active btn" id="toggleButton">
+                            All
+                        </button>
+                        <button class="toggleButton btn" id="toggleButton">
+                            Open
+                        </button>
+                    </div>
+                </div>
+                <h4 class="page-title">Vendor List</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 tableCard">
+            <div class="cardScrollWrapper">
+                <div class="cardScrollWrapper">
+                    @{
+                        int SNo = 0;
+                        foreach (var item in Model)
+                        {
+                            <div class="card">
+                                <div class="card-body">
+                                    <table id="datatable"
+                                           class="table dt-responsive nowrap"
+                                           style="border-collapse: collapse;
+                                        border-spacing: 0;
+                                        width: 100%;
+                                    ">
+                                        <thead>
+                                            <tr>
+                                                <th>S.No.</th>
+                                                <th>Vendor Name</th>
+                                                <th>Location</th>
+                                                <th>Upload Date</th>
+                                                <th>Phone</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>@(SNo += 1)</td>
+                                                <td>@item.UserName</td>
+                                                <td>@item.CityName - @item.StateName</td>
+                                                <td>@item.UploadDate.ToShortDateString()</td>
+                                                <td>@item.Mobile</td>
+                                                <td>@item.EmailId</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <a asp-action="Catalogues" asp-controller="CatalogueApproval" asp-route-id="@item.UserId" class="view-product-eye">
+                                        <img src="~/assets/images/view.svg"
+                                             alt=""
+                                             width="60%" />
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+ <script type="text/javascript">
+      const toggleButton = document.querySelectorAll("#toggleButton");
+
+      toggleButton.forEach((button) => {
+        button.addEventListener("click", () => {
+          let currentActiveNavLink = document.querySelector(
+            ".toggleButton.active"
+          );
+          currentActiveNavLink.classList.remove("active");
+
+          button.classList.add("active");
+        });
+      });
+    </script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var _selectedCityId = $("#hidSelectedCityId").val();
+        $("#selCity").val(_selectedCityId);
+    });
+    $("#selCity").on("change", function () {
+        var _CityId = $(this).val();
+        if (_CityId == "") {
+            window.location.href = "/CatalogueApproval/Index";
+        } else {
+            window.location.href = "/CatalogueApproval/Index?nCId=" + _CityId;
+        }
+    });
+</script>
+}

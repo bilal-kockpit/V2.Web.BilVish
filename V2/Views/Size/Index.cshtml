@@ -1,0 +1,57 @@
+﻿@model IEnumerable<V2.Models.Master.Size>
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right">
+                     @*<ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">V2</a>
+                      </li>
+                      <li class="breadcrumb-item active">Size</li>
+                    </ol>*@
+                    <a asp-action="Upsert" asp-controller="Size" class="btn-addmore"><i class="fa fa-plus"></i> Add More</a>
+                </div>
+                <h4 class="page-title">Size</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card-wrapper">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-sm table-border">
+                            <thead>
+                                <tr>
+                                    <td>SNO</td>
+                                    <td>Size</td>
+                                    <td>Description</td>
+                                    <td>Action</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int nRow = 0;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@(nRow+=1)</td>
+                                            <td>@item.SizeName</td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                <a asp-action="Upsert" asp-controller="Size" asp-route-id="@item.SizeId" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                <a asp-action="Remove" asp-controller="Size" asp-route-id="@item.SizeId" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

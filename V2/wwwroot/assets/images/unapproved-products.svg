@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="53" height="54" viewBox="0 0 53 54">
+  <g id="Group_25" data-name="Group 25" transform="translate(2981 3027.969)">
+    <g id="Rectangle_71" data-name="Rectangle 71" transform="translate(-2981 -3027.969)" fill="#df4134" stroke="#ffaea8" stroke-width="2">
+      <rect width="53" height="54" rx="6" stroke="none"/>
+      <rect x="1" y="1" width="51" height="52" rx="5" fill="none"/>
+    </g>
+    <g id="Group_84" data-name="Group 84" transform="translate(-11457 -2822.969)">
+      <path id="Subtraction_2" data-name="Subtraction 2" d="M10.95,25a.925.925,0,0,1-.469-.13L.47,19.094A.917.917,0,0,1,0,18.281V6.722a.919.919,0,0,1,.47-.814L10.481.13a.915.915,0,0,1,.939,0L14.837,2.1,9.362,5.263,3.887,8.424v4.708a.459.459,0,0,0,.235.407l2.236,1.291a.465.465,0,0,0,.235.064.471.471,0,0,0,.469-.471V10.257l10.95-6.322L21.43,5.909a.919.919,0,0,1,.47.814v4.386a7,7,0,0,0-6.522,11.48l-3.958,2.285A.929.929,0,0,1,10.95,25Z" transform="translate(8489.168 -190.502)" fill="#fff"/>
+      <g id="Layer_2" data-name="Layer 2" transform="translate(8502.831 -179.498)">
+        <path id="Path_33" data-name="Path 33" d="M7,1a6,6,0,1,0,6,6A6,6,0,0,0,7,1ZM9.314,8.543a.545.545,0,1,1-.771.771L7,7.771,5.457,9.314a.545.545,0,1,1-.771-.771L6.229,7,4.686,5.457a.545.545,0,1,1,.771-.771L7,6.229,8.543,4.686a.545.545,0,1,1,.771.771L7.771,7Z" transform="translate(0 0)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

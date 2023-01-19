@@ -1,0 +1,72 @@
+﻿@model List<Entity.Models.CatalogueMaster>
+@{
+    ViewData["Title"] = "CatalogueDetails";
+}
+
+<h1>Catalogue</h1>
+<div class="row bg-light w-50">
+    <div class="col-md-3">
+        <label>Total Products</label>
+        <label>0</label>
+        
+    </div>
+    <div class="col-md-2">
+        <label>Approved</label>
+        <label>0</label>
+    </div>
+    <div class="col-md-2">
+        <label>UnApproved</label>
+        <label>0</label>
+    </div>
+</div>
+<div class="text-right">
+    <a href="@Url.Action("CatalogueUpload")" class="btn btn-danger">Add More</a>
+</div>
+<br />
+<div class="container list-group">
+<table border="1">
+    <tr>
+        <th>
+            <label>Product Name</label>
+        </th>
+        <th>
+            <label>Product Code</label>
+        </th>
+        <th>
+            <label>No. of Piece</label>
+        </th>
+        <th>
+            <label>Price Per Piece</label>
+        </th>
+        <th>
+            <label>Color</label>
+        </th>
+        <th>
+            <label>Date</label>
+        </th>
+        <th>
+            <label>Size</label>
+        </th>
+        <th>
+            <label>Upload Catalogure Images</label>
+        </th>
+        <th>
+            <label>Status</label>
+        </th>
+    </tr>
+   @* @foreach (var item in Model)
+    {
+        <tr>
+            <td> @item.ProductName </td>
+            <td> @item.ProductCode </td>
+            <td> @item.NoOfPieces </td>
+            <td> @item.PricePerPiece </td>
+            <td> @item.Color </td>
+            <td> @item.CreatedOn </td>
+             <td> @item.Size </td>
+             <td> @item.CatalogueDetails</td>
+             <td></td>
+        </tr>
+    }*@
+</table>
+</div>

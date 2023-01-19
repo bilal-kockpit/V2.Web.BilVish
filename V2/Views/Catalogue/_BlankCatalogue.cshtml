@@ -1,0 +1,63 @@
+﻿<link href="~/plugins/lightpick/lightpick.css" rel="stylesheet" />
+<style>
+    .btn-addmore {
+        background: linear-gradient( 14deg, rgba(223, 65, 52, 1) 0%, rgba(223, 65, 52, 1) );
+        color: #fff;
+        box-shadow: 0 7px 14px 0 rgba(223, 65, 52, 1) 0%;
+        border: none;
+        display: inline-block;
+        font-weight: 400;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.845rem;
+        line-height: 1.8;
+        border-radius: 0.25rem;
+        position: absolute;
+        bottom: 30px;
+        width: 24%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        text-align:center;
+    }
+
+    .btn-addmore:hover{
+        color: #fff
+    }
+</style>
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right">
+                    <!-- <ol class="breadcrumb">
+                      <li class="breadcrumb-item">
+                        <a href="javascript:void(0);">V2</a>
+                      </li>
+                      <li class="breadcrumb-item active">Catalogue Upload</li>
+                    </ol> -->
+                </div>
+                <h4 class="page-title">Catalogue</h4>
+            </div>
+            <!--end page-title-box-->
+        </div>
+        <!--end col-->
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card-wrapper">
+                <div class="card" id="card">
+                    <img src="~/assets/images/catalogue-image.png"
+                         width="100%" />
+                    <a asp-action="Create" asp-controller="Catalogue"
+                            class="btn-addmore">
+                        Add Catalogue
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+</div>

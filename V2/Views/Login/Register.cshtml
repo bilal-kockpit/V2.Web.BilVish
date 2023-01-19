@@ -1,0 +1,423 @@
+﻿@model V2.Models.Account.User
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/AccountLayout.cshtml"; ;
+}
+
+<style>
+    .getOtpWrapper {
+        width: 78px;
+        height: 33.1px;
+        background: rgb(223, 65, 52, 0.1) 0% 0% no-repeat padding-box;
+        border-radius: 28px;
+        /* opacity: 0.1; */
+        position: absolute;
+        right: 3px;
+        z-index: 100;
+        top: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .getOtpWrapper a {
+            /* font: normal normal medium 16px/25px Poppins; */
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 25px;
+            letter-spacing: 0px;
+            color: #df4134;
+            /* color: #ffffff; */
+            opacity: 1;
+        }
+
+    .verification-code--inputs input[type="text"] {
+        width: 40px;
+        height: 40px;
+        /* UI Properties */
+        border: 1px solid #dcdcdc;
+        border-radius: 28px;
+        opacity: 1;
+        text-align: center;
+        display: inline-block;
+        box-sizing: border-box;
+    }
+    /* .validateOtp a {
+        text-decoration: underline !important;
+        font-size: 16px;
+        line-height: 25px;
+        letter-spacing: 0px;
+        color: #df4134;
+        opacity: 1;
+      } */
+    .account-body .auth-page {
+        width: 65vw;
+        max-width: 65vw;
+    }
+
+    .account-body .auth-form .auth-form-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tooltip-text {
+        visibility: hidden;
+        position: absolute;
+        z-index: 2;
+        width: 250px;
+        color: #000000;
+        font-size: 12px;
+        background: #fcebea;
+        border-radius: 10px;
+        padding: 10px 15px 10px 15px;
+        z-index: 10000;
+        text-align: start;
+    }
+
+        .tooltip-text p {
+            margin-bottom: 0.5rem;
+            font-size: 12px;
+        }
+
+        .tooltip-text::before {
+            content: "";
+            position: absolute;
+            transform: rotate(45deg);
+            background-color: #fcebea;
+            padding: 5px;
+            z-index: 1;
+        }
+
+    .hover-text:hover .tooltip-text {
+        visibility: visible;
+    }
+
+    .hover-text i {
+        background: #fcebea 0% 0% no-repeat padding-box;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 7px;
+    }
+
+    .fa-info:before {
+        color: #df4134;
+    }
+
+    #right {
+        top: -40px;
+        left: 145%;
+    }
+
+        #right::before {
+            top: 35%;
+            left: -2%;
+        }
+
+    .hover-text {
+        position: relative;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .validateOtp {
+        width: 90px;
+        height: 35.1px;
+        background: rgb(223, 65, 52, 0.1) 0% 0% no-repeat padding-box;
+        border-radius: 28px;
+        /* opacity: 0.1; */
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .validateOtp a {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 25px;
+            letter-spacing: 0px;
+            color: #df4134;
+            /* color: #ffffff; */
+            opacity: 1;
+        }
+
+    .text-danger {
+        color: #f14b4b !important;
+        font-size: 10px;
+    }
+</style>
+<div class="login-header">
+    <div class="logo">
+        <img src="https://chatimgs.blob.core.windows.net/customerskockpitwebsite/V2_New_Logo.png"
+             alt="logo"
+             class="auth-logo"
+             width="100%" />
+    </div>
+    <div class="signupWrapper">
+        <div class="signup">
+            <p>Already have an account?</p>
+            <a asp-action="Index" asp-controller="Login">
+                <button class="signup-button" type="button">Log In</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-1">
+    <div class="col-12 align-self-center">
+        <div class="auth-page">
+            <div class="card auth-card shadow-lg">
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="text-center auth-logo-text">
+                            <h4 class="mt-0 mb-3 mt-3">Sign Up</h4>
+                        </div>
+                        <form class="form-horizontal auth-form mt-4 pt-4"
+                              asp-action="Register" method="post" asp-controller="Login">
+                            @Html.ValidationSummary(false,"",new { @class="text-danger text-sm" })
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="username">Company Name*</label>
+                                        <div class="input-group mb-3">
+                                            <span class="auth-form-icon">
+                                                <img src="~/assets/images/user.svg"
+                                                     alt=""
+                                                     width="40%" />
+                                            </span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   asp-for="UserName"
+                                                   id="companyname"
+                                                   placeholder="Enter Company Name" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="useremail">Email*</label>
+                                        <div class="input-group mb-3">
+                                            <span class="auth-form-icon">
+                                                <img src="~/assets/images/email.svg"
+                                                     alt=""
+                                                     width="40%" />
+                                            </span>
+                                            <input type="email"
+                                                   class="form-control"
+                                                   asp-for="EmailId"
+                                                   id="email"
+                                                   placeholder="Enter Email"
+                                                   required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="username">City*</label>
+                                        <div class="input-group mb-3">
+                                            <span class="auth-form-icon">
+                                                <img src="~/assets/images/location.svg"
+                                                     alt=""
+                                                     width="40%" />
+                                            </span>
+                                            <select asp-for="CityId" class="form-control" asp-items="@ViewBag.cities" id="city"></select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="useremail">GST*</label>
+                                        <div class="input-group mb-3">
+                                            <span class="auth-form-icon">
+                                                <img src="~/assets/images/gst.svg"
+                                                     alt=""
+                                                     width="40%" />
+                                            </span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   asp-for="GSTIN"
+                                                   id="gst"
+                                                   placeholder="Enter GST"
+                                                   maxlength="15"
+                                                   required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userpassword">
+                                            Password*
+                                            <div class="hover-text">
+                                                <i class="fas fa-info"></i>
+                                                <span class="tooltip-text" id="right">
+                                                    <p>At least 8 character.</p>
+                                                    <p>At least one Numeric.</p>
+                                                    <p>At least one special character.</p>
+                                                    <p>At least one upper and lower case.</p>
+                                                </span>
+                                            </div>
+                                        </label>
+                                        <div class="input-group mb-3">
+                                            <span class="auth-form-icon">
+                                                <img src="~/assets/images/padlock.svg"
+                                                     alt=""
+                                                     width="40%" />
+                                            </span>
+                                            <input type="password"
+                                                   asp-for="Password"
+                                                   class="form-control"
+                                                   id="userpassword"
+                                                   placeholder="Enter Password" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="userpassword">Confirm Password</label>
+                                        <div class="input-group mb-3">
+                                            <input type="password"
+                                                   asp-for="ConfirmPassword"
+                                                   class="form-control"
+                                                   id="confirmpassword"
+                                                   placeholder="Confirm Password" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="mo_number">Mobile Number*</label>
+                                        <div class="input-group">
+                                            <span class="getOtpWrapper">
+                                                <a href="#" class="getOtp">Get Otp</a>
+                                                <!-- <button type="button">Get Otp</button>-->
+                                            </span>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   asp-for="Mobile"
+                                                   id="mobile"
+                                                   placeholder="Enter Mobile Number"
+                                                   onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))"
+                                                   maxlength="10"
+                                                   required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @*<div class="col-lg-6">
+                                    <div class="form-group d-flex align-items-center justify-content-between"
+                                         style="padding-top: 25px">
+                                        <div class="verification-code--inputs">
+                                            <input type="text" maxlength="1" />
+                                            <input type="text" maxlength="1" />
+                                            <input type="text" maxlength="1" />
+                                            <input type="text" maxlength="1" />
+                                        </div>  
+                                        <div class="validateOtp">
+                                            <a href="#" class="validate">Verify OTP</a>
+                                        </div>
+                                    </div>
+                                </div>*@
+                            </div>
+
+
+
+
+
+
+
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div class="form-group mb-0 mt-3 row">
+                                <div class="col-6 m-auto">
+                                    <button class="login-button btn-round btn-block waves-effect waves-light"
+                                            type="submit" onclick="return validate();">
+                                        Sign Up
+                                        <img src="~/assets/images/enter.svg" alt="" />
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initControl();
+        });
+
+        function initControl() {
+            $('#companyname').removeClass('invalid');
+            $('#email').removeClass('invalid');
+            $('#city').removeClass('invalid');
+            $('#gst').removeClass('invalid');
+            $('#userpassword').removeClass('invalid');
+            $('#confirmpassword').removeClass('invalid');
+        }
+
+        function validate() {
+            if ($('#companyname').val() == '') {
+                $('#companyname').addClass('invalid');
+                return false;
+            }
+            if ($('#email').val() == '') {
+                $('#email').addClass('invalid');
+                return false;
+            }
+            if ($('#city').val() == '') {
+                $('#city').addClass('invalid');
+                return false;
+            }
+            if ($('#gst').val() == '') {
+                $('#gst').addClass('invalid');
+                return false;
+            }
+            if ($('#userpassword').val() == '') {
+                $('#userpassword').addClass('invalid');
+                return false;
+            }
+            if ($('#confirmpassword').val() == '') {
+                $('#confirmpassword').addClass('invalid');
+                return false;
+            } else {
+                var _password = $('#userpassword').val();
+                var _conPassword = $('#confirmpassword').val();
+                if (_password != _conPassword) {
+                    alert('password does not matched');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    </script>
+}

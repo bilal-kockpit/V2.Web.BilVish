@@ -1,0 +1,70 @@
+﻿@model V2.Models.RBAC.Roles
+@{
+    //Layout = null;
+}
+
+<!DOCTYPE html>
+
+<h1>Role </h1>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border border-info">
+            <div class="card-header bg-info text-white ">
+                <h5 class="text-uppercase text-center">Role</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Role" method="post">
+
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input asp-for="Role" class="form-control" />
+                        <span asp-validation-for="Role" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                       <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                     <div class="form-group">
+                        <label>Vendor</label>
+                        <input asp-for="IsVendor"/>
+                        <span asp-validation-for="IsVendor" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Active</label>
+                        <input asp-for="IsActive"   />
+                        <span asp-validation-for="IsActive" class="text-danger"></span>
+                    </div>
+
+                     <div class="form-group">
+                         <label>Created On </label>
+                        <input asp-for="CreatedOn" class="form-control" />
+                        <span asp-validation-for="CreatedOn" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Updated On</label>
+                        <input asp-for="LastUpdatedOn" class="form-control"  />
+                        <span asp-validation-for="LastUpdatedOn" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Updated By</label>
+                        <input asp-for="LastUpdatedBy" class="form-control" />
+                        <span asp-validation-for="LastUpdatedBy" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deleted</label>
+                        <input asp-for="IsDeleted" id="password" />
+                        <span asp-validation-for="IsDeleted" class="text-danger"></span>
+                    </div>
+                   
+                    <input type="submit" value="Add" class="btn btn-secondary" />
+                    <a href="@Url.Action("GetAllRoles")" class="btn-blue">Role List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

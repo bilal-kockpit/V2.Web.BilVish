@@ -1,0 +1,35 @@
+﻿@model V2.Models.Master.SubDivisions
+@{
+    ViewData["Title"] = "SubDivision";
+}
+
+<h1>Sub Divisions</h1>
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card border border-info">
+            <div class="card-header bg-info text-white ">
+                <h5 class="text-uppercase text-center">Sub Divisions</h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="SubDivision" method="post">
+
+                    <div class="form-group">
+                        <label>Sub Division</label>
+                        <input asp-for="SubDivisionName" class="form-control" />
+                        <span asp-validation-for="SubDivisionName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+
+                    <input type="submit" value="Add" class="btn btn-secondary" />
+                    <a href="@Url.Action("GetAllSubDivisions")" class="btn-blue">Division List</a>
+               </form>
+            </div>
+        </div>
+    </div>
+</div>

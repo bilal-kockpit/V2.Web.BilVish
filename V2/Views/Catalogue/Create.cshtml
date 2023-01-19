@@ -1,0 +1,988 @@
+﻿@model V2.ViewModels.Catalogue.CatalogueUploadViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<style>
+   .view-product {
+        width: 30px;
+        height: 30px;
+        background: #df4134 0% 0% no-repeat padding-box;
+        border-radius: 8px;
+        opacity: 1;
+        border: 1px solid #df4134;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .profile-card .pro-title {
+        font-size: clamp(12px, 1vw, 14px) !important;
+        line-height: 35px;
+        letter-spacing: 0px;
+        color: #7493a8;
+        opacity: 1;
+      }
+
+    .table {
+        margin-bottom:0% !important;
+    }
+
+      .table-bordered tbody tr td table tbody tr td {
+        border: unset;
+        padding-bottom: 0%;
+      }
+
+      .table-bordered tbody tr td table {
+        margin-bottom: 0%;
+      }
+
+      .table th,
+      .table td {
+        padding: 0.5rem;
+      }
+
+      .btn-savedraft {
+        background: unset;
+        color: #fff;
+        box-shadow: 0 7px 14px 0 #df4134 0%;
+        border: none;
+        display: inline-block;
+        font-weight: 400;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.845rem;
+        line-height: 1.8;
+        border-radius: 0.25rem;
+        border: 1px solid #df4134;
+        color: #df4134;
+      }
+
+      .btn-savedraft:hover {
+        background: linear-gradient(14deg, rgb(223, 65, 52) 0%, #df4134);
+        color: #fff;
+      }
+
+      .modal.show .modal-dialog {
+        width: 85%;
+        max-width: 85%;
+      }
+
+      .btn-secondary {
+        color: #fff;
+        background-color: rgba(223, 65, 52, 1);
+        border-color: rgba(223, 65, 52, 1);
+        box-shadow: 0 7px 14px 0 rgba(223 65 52 / 50%);
+      }
+
+      .btn-secondary:hover {
+        color: #fff;
+        background-color: #df4134;
+        border-color: #df4134;
+      }
+
+      .btn-secondary:focus,
+      .btn-secondary.focus {
+        -webkit-box-shadow: 0 0 0 0.2rem rgb(223 65 52 / 50%);
+        box-shadow: 0 0 0 0.2rem rgb(223 65 52 / 50%);
+      }
+
+      .btn-close {
+        border-radius: 50%;
+        border: 1px solid white;
+        background: white;
+      }
+
+      .fa-times:before {
+        color: #5b5b5b;
+      }
+
+      #modal {
+        padding-right: unset !important;
+      }
+
+      .modal-header {
+        padding: 0.3rem 1rem;
+      }
+
+      .submitBtnWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .addImage {
+        width: 45px;
+        height: 45px;
+        background: #dcdcdc 0% 0% no-repeat padding-box;
+        border: 2px solid #ffffff;
+        border-radius: 28px;
+        opacity: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        object-fit: fill;
+        padding: unset;
+      }
+
+      .addImage .fa-times {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 15px;
+        height: 15px;
+        background: #fcebea 0% 0% no-repeat padding-box;
+        opacity: 1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .addImage .fa-times:before {
+        color: #de4132 !important;
+        font-size: 8px;
+      }
+
+      .modal-body {
+        background-color: #ffffff;
+      }
+
+      .addImage:focus,
+      .addImage.focus {
+        outline: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+
+      .img-group {
+        display: flex;
+      }
+
+      .backBtn {
+        width: 60px;
+        height: 30px;
+        background: rgba(116, 147, 168, 0.12);
+        border-radius: 5px;
+        font-size: 12px;
+        letter-spacing: 0px;
+        color: #7493a8;
+        border: 1px solid rgba(116, 147, 168, 0.12);
+        opacity: 1;
+      }
+      .card-body {
+        width: calc(100vw - 322px);
+      }
+      .badge {
+        font-size: 12px !important;
+        line-height: 24px;
+      }
+      body {
+        overflow: hidden;
+      }
+
+      .left-sidenav-menu li.mm-active > a {
+        color: #fff;
+        background: unset;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border-radius: 4px;
+      }
+      .left-sidenav-menu li.mm-active > a > span {
+        color: #de4132;
+        font-weight: 600 !important;
+      }
+
+      .left-sidenav-menu li.mm-active > a > img:nth-child(1) {
+        display: none !important;
+      }
+
+      .left-sidenav-menu li.mm-active > a > img:nth-child(2) {
+        display: block !important;
+      }
+
+      .left-sidenav-menu li > a > img:nth-child(1) {
+        display: block;
+      }
+
+      .left-sidenav-menu li > a > img:nth-child(2) {
+        display: none;
+      }
+      @@media (min-width: 576px) {
+    .modal-dialog {
+        /* max-width: 500px; */
+        margin: 1.75rem auto;
+        width: 85%;
+        max-width: 85%;
+    }
+      }
+
+
+      @@media screen and (min-width: 1200px) {
+        .card-body {
+          width: calc(100vw - 322px);
+        }
+      }
+
+    .ss-main {
+        display: flex;
+        width: 100%;
+        height: calc(1.8em + 0.75rem + 2px);
+        padding: 0.375rem 0.75rem;
+        font-size: 0.845rem;
+        font-weight: 400;
+        line-height: 1.8;
+        color: #303e67;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #e8ebf3;
+        border-radius: 0.25rem;
+        -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    }
+
+        .ss-main:focus {
+            box-shadow: none;
+        }
+
+    .ss-values {
+        transform: translateY(-3px);
+    }
+
+    .ss-main .ss-values .ss-value .ss-value-delete {
+        display: table;
+    }
+
+    .ss-main .ss-values .ss-max {
+        transform: translateY(2px);
+    }
+
+    #CatalogueLine_Color{
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .dot {
+        position: relative !important;
+    }
+
+    .subdot {
+        width: 30px;
+        height: 30px
+    }
+
+    .dot .fa-times {
+        position: absolute;
+        top: -8px;
+        font-size: 10px;
+        right: -2px;
+        background: #fff;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        background: #FFFFFF;
+        box-shadow: 0px 13px 26px hsl(0deg 0% 0% / 54%);
+    }
+
+            .dot .fa-times:before {
+                color: #000 !important;
+                font-size: 8px !important;
+                font-weight: bold !important;
+            }
+
+    .uploadImageWrapper{
+        display: flex;
+    }
+</style>
+
+
+<input type="hidden" id="hidCatalogueHeaderId" value="@Model.CatalogueLine.CatalogueHeaderId">
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right">
+                    @{
+                        if(Model.ShowControl)
+                        {
+                            <button type="button"
+                                    class="btn-addmore"
+                                    onclick="addProduct();"
+                                    data-toggle="modal"
+                                    data-target="#addProduct">
+                                Add More
+                            </button>
+                        }
+                    }
+
+                </div>
+                <a asp-action="Index" asp-controller="Catalogue">
+                    <button class="backBtn">
+                        <img src="~/assets/images/backBtn.svg" alt="" />
+                        Back
+                    </button>
+                </a>
+            </div>
+            <!--end page-title-box-->
+        </div>
+        <!--end col-->
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="col-12 tableCard">
+            <div class="card">
+                <div class="card-body">
+                    <table class="table table-bordered nowrap">
+                        <thead>
+                            <tr class="info">
+                                <th>Product</th>
+                                <th>Division</th>
+                                <th>Sub Division</th>
+                                <th>Major Category</th>
+                                @*<th>Size</th>*@
+                                <th>Color</th>
+                                <th>Status</th>
+                                <th>No.ofPrint</th>
+                                <th>No.ofSize</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.CatalogueLines != null && Model.CatalogueLines.Count() > 0)
+                            {
+                                foreach (var line in Model.CatalogueLines)
+                                {
+                                    <tr>
+                                        <td>[@line.ProductCode]-@line.ProductName</td>
+                                        <td>@line.Division.DivisionName</td>
+                                        <td>@line.SubDivision.SubDivisionName</td>
+                                        <td>@line.MajorCategory.MajorCategoryName</td>
+                                        @*<td>@line.Size</td>*@
+                                        <td>
+                                            @Html.Raw(String.Join(" ", line.Color.Split(",").Select(c => "<span class='dot' style='background-color:" + c + "'></span>").ToArray()))
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-md badge-soft-@(line.Status.StatusId == 4 ? "danger" : line.Status.StatusId == 3 ? "success" : line.Status.StatusId == 2 ? "pink" : "secondary")">@line.Status.StatusName</span>
+                                        </td>
+                                        <td>@line.NoOfPrint</td>
+                                        <td>@line.NoOfSize</td>
+                                        <td class="d-flex" style="gap: 0.5rem">
+                                            <a asp-action="Detail" asp-controller="Catalogue" asp-route-catalogueHead="@Model.CatalogueLine.CatalogueHeaderId" asp-route-lineId="@line.CatalogueLinesId">
+                                                <button type="button" class="view-product">
+                                                    <img src="~/assets/images/view.svg"
+                                                         alt=""
+                                                         width="85%" />
+                                                </button>
+                                            </a>
+
+                                            @if (Model.ShowControl)
+                                            {
+                                                <a href="#" onclick="editProduct(this);"
+                                                   d-CatalogueHeaderId="@line.CatalogueHeaderId"
+                                                   d-CatalogueLinesId="@line.CatalogueLinesId"
+                                                   d-DivisionId="@line.Division.DivisionId"
+                                                   d-SubDivisionId="@line.SubDivision.SubDivisionId"
+                                                   d-MajorCategoryId="@line.MajorCategory.MajorCategoryId"
+                                                   d-ProductName="@line.ProductName"
+                                                   d-ProductCode="@line.ProductCode"
+                                                   d-VendorDesignNo="@line.VendorDesignNo"
+                                                   d-Yarn="@line.Yarn"
+                                                   d-Weave1="@line.Weave1"
+                                                   d-NoOfPiece="@line.NoOfPiece"
+                                                   d-PricePerPiece="@line.PricePerPiece"
+                                                   d-NetRate="@line.NetRate"
+                                                   d-AvailableQty="@line.AvailableQty"
+                                                   d-Color="@line.Color"
+                                                   d-NoOfColor="@line.NoOfColor"
+                                                   d-Size="@line.Size"
+                                                   d-NoOfSize="@line.NoOfSize"
+                                                   d-NoOfPrint="@line.NoOfPrint"
+                                                   d-Images="@String.Join(",",line.CatalogueLineImages.Select(c=>c.ProductImage.Replace("\\","/")))">
+                                                    <button type="button" class="view-product">
+                                                        <img src="~/assets/images/edit.svg"
+                                                             alt=""
+                                                             width="80%" />
+                                                    </button>
+                                                </a>
+
+                                                <a onclick="return rtconfirm();" asp-action="Remove" asp-controller="Catalogue" asp-route-id="@line.CatalogueLinesId" asp-route-nCatalogueHeaderId="@line.CatalogueHeaderId">
+                                                    <button type="button" class="view-product">
+                                                        <img src="~/assets/images/trashIcon.svg"
+                                                             alt=""
+                                                             width="75%" />
+                                                    </button>
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (Model.ShowControl)
+    {
+        <a asp-action="SubmitCatalogue" asp-controller="Catalogue" 
+           asp-route-nCatHeaderId="@Model.CatalogueHeaderId"
+           onclick="return confSubmit();">
+            <button type="button" class="btn-addmore">Submit</button>
+        </a>
+    }
+</div>
+
+@*Add/Edit Product*@
+<div class="modal fade" tabindex="-1" id="addProduct">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New</h5>
+                <button type="button"
+                        class="btn-close"
+                        data-dismiss="modal"
+                        aria-label="close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="Create" asp-controller="Catalogue" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="CatalogueLine.CatalogueHeaderId" value="0" />
+                    <input type="hidden" asp-for="CatalogueLine.CatalogueLinesId" value="0" />
+                    <input type="hidden" id="hidMode" value="0" />
+                    <div class="row justify-content-between">
+                        <div class="form-group col-lg-3">
+                            <label for="projectName">Division</label>
+                            <select class="form-control" asp-for="CatalogueLine.DivisionId" asp-items="ViewBag.DivisionList">
+                                <option value="">[Select]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="pro-start-date">Sub Division</label>
+                            <select class="form-control" asp-for="CatalogueLine.SubDivisionId">
+                                <option value="">[Select]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="piece">Major Category</label>
+                            <select class="form-control" asp-for="CatalogueLine.MajorCategoryId" asp-items="ViewBag.MajorCatList">
+                                <option value="">[Select]</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="pro-start-date">Product Name</label>
+                            <input type="text" asp-for="CatalogueLine.ProductName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="date">Product Code</label>
+                            <input type="text" asp-for="CatalogueLine.ProductCode" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="pro-start-date">VND-DZN-No</label>
+                            <input type="text" asp-for="CatalogueLine.VendorDesignNo" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">Yarn</label>
+                            <input type="text" asp-for="CatalogueLine.Yarn" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">Weave-1</label>
+                            <input type="text" asp-for="CatalogueLine.Weave1" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="date">No. of  Piece(s)</label>
+                            <input type="number" asp-for="CatalogueLine.NoOfPiece" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">Price Per Piece</label>
+                            <input type="number" asp-for="CatalogueLine.PricePerPiece" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">Net Rate</label>
+                            <input type="number" asp-for="CatalogueLine.NetRate" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">VND ALV-QTY</label>
+                            <input type="number" asp-for="CatalogueLine.AvailableQty" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="pro-start-date">Color</label>
+                            <div style="display:flex">
+                                <input type="color" class="form-control" id="colorPicker" style="width: 20%;" />
+                                &nbsp;
+                                <div id="CatalogueLine_Color">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="date">No. of Color(s)</label>
+                            <input type="number" asp-for="CatalogueLine.NoOfColor" class="form-control" />
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="pricePiece">Vendor Size</label><br />
+                            <select asp-for="CatalogueLine.Size" asp-items="ViewBag.SizeList" multiple>
+                            </select>
+                        </div>
+                        <div class="form-group col-lg-3">
+                            <label for="pro-start-date">No. of Size(s)</label>
+                            <input type="number" asp-for="CatalogueLine.NoOfSize" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-lg-3">
+                            <label for="date">No. of Print(s)</label>
+                            <input type="number" asp-for="CatalogueLine.NoOfPrint" class="form-control" />
+                        </div>
+
+                        <div class="form-group col-lg-9">
+                            <label for="team-leader">Catalogue Images</label>
+                            <div class="uploadImageWrapper">
+                                <div class="img-group mt-2">
+                                    <button type="button" onclick="document.getElementById('ProductImages').click()"
+                                            class="btn btn-sm add-member addImage">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                    <input id="ProductImages"
+                                           type="file"
+                                           accept="image/png, image/gif, image/jpeg"
+                                           name="files[]"
+                                           multiple
+                                           style="display: none" />
+                                </div>
+                                <div class="img-group mt-2" id="divImagePreview"></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="submitBtnWrapper mt-3">
+                    <button type="button" id="btnSaveAsDraft" class="btn-addmore">
+                        Save as draft
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*confirm message modal*@
+<div class="modal" id="msgModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class=".btn-savedraft" data-bs-dismiss="modal">Yes</button>
+                <button type="button" class=".btn-savedraft">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+        var x = new SlimSelect({
+            select: "#CatalogueLine_Size",
+            settings: {
+                showSearch: false,
+                allowDeselect: true,
+                maxValuesShown: 2, // Default 20
+                maxValuesMessage: "{number} values selected", // Default '{number} selected'
+            },
+        });
+
+        $(document).ready(function () {
+           // $("#msgModal").modal("show");
+            @if(Model.CatalogueLines.Count() == 0)
+            {
+            <text>
+            $("#addProduct").modal('show');
+            </text>
+            }
+        });
+
+        $("#CatalogueLine_DivisionId").on("change", function () {
+            var _divisionId = $(this).val();
+            $("#CatalogueLine_SubDivisionId").empty();
+            var frmData = new FormData();
+            frmData.append("nDivisionId", _divisionId);
+            $.ajax({
+                url: "@Url.Action("GetSubDivisionByDivisionId", "Catalogue")",
+                type: "POST",
+                data: frmData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    console.log(res);
+                    var html = '<option value="">[Select]</option>';
+                    if (res.data != null && res.data.length > 0) {
+                        for (var i = 0; i < res.data.length; i++){
+                            html += '<option value="' + res.data[i].value + '">' + res.data[i].text +'</option>';
+                        }
+                    }
+                    $("#CatalogueLine_SubDivisionId").html(html);
+                },
+                error: function (err) {
+                    toastr.error(err);
+                }
+            });
+        });
+
+        $("#colorPicker").on("change", function () {
+            var _pickerValue = $(this).val();
+            var _oldHtml = $("#CatalogueLine_Color").html();
+            var html = _oldHtml + '&nbsp;<button type="button" data-color="' + _pickerValue + '" onclick="this.remove();" class="dot subdot" style="background-color:' + _pickerValue + '"><i class="fas fa-times"></i></button>';
+            $("#CatalogueLine_Color").html(html);
+        });
+
+        $('#ProductImages').on('change', function () {
+            $("#divImagePreview").empty();
+            var filesAmount = $(this)[0].files.length;
+            if (filesAmount > 10) {
+                $(this).val('');
+                toastr.error("You can select upto 10 images only");
+                return;
+            } else {
+                for (i = 0; i < filesAmount; i++) {
+                    var reader = new FileReader();
+                    reader.onload = function (event) {
+                        $($.parseHTML('<img class="btn btn-sm add-member addImage" width="50px" height="50px">')).attr('src', event.target.result).appendTo("#divImagePreview");
+                    }
+                    reader.readAsDataURL($(this)[0].files[i]);
+                }
+            }
+        });
+
+        $("#btnSaveAsDraft").on("click", function () {
+            var _mode = parseInt($("#hidMode").val());
+            var _CatalogueHeaderId = $("#CatalogueLine_CatalogueHeaderId").val();
+            var _CatalogueLinesId = $("#CatalogueLine_CatalogueLinesId").val();
+            var _DivisionId = $("#CatalogueLine_DivisionId").val();
+            var _SubDivisionId = $("#CatalogueLine_SubDivisionId").val();
+            var _MajorCategoryId = $("#CatalogueLine_MajorCategoryId").val();
+            var _ProductName = $("#CatalogueLine_ProductName").val();
+            var _ProductCode = $("#CatalogueLine_ProductCode").val();
+
+            var _Size = x.getSelected() // Will return an array of strings
+            console.log(_Size)
+            //parseInt($("#CatalogueLine_Size").val());
+            var _NoOfPiece = parseInt($("#CatalogueLine_NoOfPiece").val());
+            var _PricePerPiece = parseFloat($("#CatalogueLine_PricePerPiece").val());
+            var _NoOfPrint = parseInt($("#CatalogueLine_NoOfPrint").val());
+            var _NoOfSize = parseInt($("#CatalogueLine_NoOfSize").val());
+            var _NoOfColor = parseInt($("#CatalogueLine_NoOfColor").val());
+            var _AvailableQty = parseInt($("#CatalogueLine_AvailableQty").val());
+            var _NetRate = parseFloat($("#CatalogueLine_NetRate").val());
+
+            var _VendorDesignNo = $("#CatalogueLine_VendorDesignNo").val();
+            var _Yarn = $("#CatalogueLine_Yarn").val();
+            var _Weave1 = $("#CatalogueLine_Weave1").val();
+            var _Color = [];
+            var btns = $("#CatalogueLine_Color").find("button");
+            for (var i = 0; i < btns.length; i++) {
+                _Color.push($(btns[i]).attr("data-color"));
+            }
+            var images = $('#ProductImages')[0].files;
+
+            if (_DivisionId == "") {
+                toastr.error('Please select division');
+                return;
+            }
+            else if (_SubDivisionId == "") {
+                toastr.error('Please select sub division');
+                return;
+            }
+            else if (_MajorCategoryId == "") {
+                toastr.error('Please select major category');
+                return;
+            }
+            else if (_ProductName == "") {
+                toastr.error('Please mention product name');
+                return;
+            }
+            else if (_ProductCode == "") {
+                toastr.error('Please mention product code');
+                return;
+            }
+            else if (_VendorDesignNo == "") {
+                toastr.error('Please mention vendor design number');
+                return;
+            }
+            else if (_Yarn == "") {
+                toastr.error('Please mention yarn');
+                return;
+            }
+            else if (_Weave1 == "") {
+                toastr.error('Please mention Weave-1');
+                return;
+            }
+            else if (_NoOfPiece == "" || _NoOfPiece == 0) {
+                toastr.error('Please mention No. of piece');
+                return;
+            }
+            else if (_PricePerPiece == "" || _PricePerPiece == 0) {
+                toastr.error('Please mention price per piece');
+                return;
+            }
+            else if (_NetRate == "" || _NetRate == 0) {
+                toastr.error('Please mention net rate');
+                return;
+            }
+            else if (_AvailableQty == "" || _AvailableQty == 0) {
+                toastr.error('Please mention vendor available qty');
+                return;
+            }
+            else if (_Color.length == 0) {
+                toastr.error('Please mention colors');
+                return;
+            }
+            else if (_NoOfColor == "" || _NoOfColor == 0) {
+                toastr.error('Please mention no. of colors');
+                return;
+            }
+            else if (_Size == "" || _Size == 0) {
+                toastr.error('Please mention sizes');
+                return;
+            }
+            else if (_NoOfSize == "" || _NoOfSize == 0) {
+                toastr.error('Please mention no. of size');
+                return;
+            }
+            else if (_NoOfPrint == "" || _NoOfPrint == 0) {
+                toastr.error('Please mention no. of print');
+                return;
+            }
+            else if (images.length == 0 && _mode == 0) {
+                toastr.error('Please upload catalogue images');
+                return;
+            }
+            else {
+                if (images.length > 10) {
+                    toastr.error('Cannot upload more then 10 images');
+                    return;
+                }
+
+                var catalogueLines = {
+                    CatalogueHeaderId: _CatalogueHeaderId,
+                    CatalogueLinesId: _CatalogueLinesId,
+                    ProductName: _ProductName,
+                    ProductCode: _ProductCode,
+                    Color: _Color.join(),
+                    Size: _Size.join(),
+                    NoOfPiece: _NoOfPiece,
+                    PricePerPiece: _PricePerPiece,
+                    MajorCategoryId: _MajorCategoryId,
+                    DivisionId: _DivisionId,
+                    SubDivisionId: _SubDivisionId,
+                    NoOfPrint: _NoOfPrint,
+                    NoOfSize: _NoOfSize,
+                    NoOfColor: _NoOfColor,
+                    VendorDesignNo: _VendorDesignNo,
+                    Yarn: _Yarn,
+                    Weave1: _Weave1,
+                    AvailableQty: _AvailableQty,
+                    NetRate: _NetRate,
+                    IsActive: true
+                };
+
+                var frmData = new FormData();
+                frmData.append("catalogueLines", JSON.stringify(catalogueLines));
+                for (var i = 0; i < images.length; i++) {
+                    frmData.append("images", images[i]);
+                }
+                frmData.append("mode", $("#hidMode").val());
+
+                $.ajax({
+                    url: "@Url.Action("Create", "Catalogue")",
+                    type: "POST",
+                    data: frmData,
+                    contentType: false,
+                    processData: false,
+                    success: function (res) {
+                        if (res.success) {
+                            window.location.href = "/Catalogue/Create?Id=" + res.catalogueid;
+                        } else {
+                            toastr.error(res.msg);
+                        }
+                    },
+                    error: function (err) {
+                        toastr.error(err);
+                    }
+                });
+            }
+        });
+
+        function initControl() {
+            $("#hidMode").val("0");
+            $("#CatalogueLine_CatalogueHeaderId").val("0");
+            $("#CatalogueLine_CatalogueLinesId").val("0");
+            $("#CatalogueLine_DivisionId").val("");
+            $("#CatalogueLine_SubDivisionId").val("");
+            $("#CatalogueLine_MajorCategoryId").val("");
+            $("#CatalogueLine_ProductName").val("");
+            $("#CatalogueLine_ProductCode").val("");
+            $("#CatalogueLine_Size").val("");
+            $("#CatalogueLine_NoOfPiece").val(0);
+            $("#CatalogueLine_PricePerPiece").val(0);
+            $("#CatalogueLine_NoOfPrint").val(0);
+            $("#CatalogueLine_NoOfSize").val(0);
+            $("#CatalogueLine_NoOfColor").val(0);
+            $("#CatalogueLine_VendorDesignNo").val("");
+            $("#CatalogueLine_Yarn").val("");
+            $("#CatalogueLine_Weave1").val("");
+            $("#CatalogueLine_AvailableQty").val(0);
+            $("#CatalogueLine_NetRate").val(0);
+            $("#CatalogueLine_Color").empty();
+            $('#ProductImages').val("");
+            $("#divImagePreview").empty();
+            x.setSelected("");
+        }
+
+        function addProduct() {
+            initControl();
+
+            var _CatalogueHeaderId = $("#hidCatalogueHeaderId").val();
+            $("#CatalogueLine_CatalogueHeaderId").val(_CatalogueHeaderId);
+            $("#hidMode").val("0");
+        }
+
+        function editProduct(btn) {
+            initControl();
+
+            var _CatalogueHeaderId = $(btn).attr("d-CatalogueHeaderId");
+            var _CatalogueLinesId = $(btn).attr("d-CatalogueLinesId");
+            var _DivisionId = $(btn).attr("d-DivisionId");
+            var _SubDivisionId = $(btn).attr("d-SubDivisionId");
+            var _MajorCategoryId = $(btn).attr("d-MajorCategoryId");
+            var _ProductName = $(btn).attr("d-ProductName");
+            var _ProductCode = $(btn).attr("d-ProductCode");
+            var _VendorDesignNo = $(btn).attr("d-VendorDesignNo");
+            var _Yarn = $(btn).attr("d-Yarn");
+            var _Weave1 = $(btn).attr("d-Weave1");
+            var _NoOfPiece = $(btn).attr("d-NoOfPiece");
+            var _PricePerPiece = $(btn).attr("d-PricePerPiece");
+            var _NetRate = $(btn).attr("d-NetRate");
+            var _AvailableQty = $(btn).attr("d-AvailableQty");
+            var _NoOfColor = $(btn).attr("d-NoOfColor");
+            var _NoOfSize = $(btn).attr("d-NoOfSize");
+            var _NoOfPrint = $(btn).attr("d-NoOfPrint");
+
+            var _Size = $(btn).attr("d-Size");
+            var _Images = $(btn).attr("d-Images");
+            var _Color = $(btn).attr("d-Color");
+
+            $("#CatalogueLine_CatalogueHeaderId").val(_CatalogueHeaderId);
+            $("#CatalogueLine_CatalogueLinesId").val(_CatalogueLinesId);
+            $("#CatalogueLine_DivisionId").val(_DivisionId);
+            
+            $("#CatalogueLine_MajorCategoryId").val(_MajorCategoryId);
+            $("#CatalogueLine_ProductName").val(_ProductName);
+            $("#CatalogueLine_ProductCode").val(_ProductCode);
+            $("#CatalogueLine_NoOfPiece").val(_NoOfPiece);
+            $("#CatalogueLine_PricePerPiece").val(_PricePerPiece);
+            $("#CatalogueLine_NoOfPrint").val(_NoOfPrint);
+            $("#CatalogueLine_NoOfSize").val(_NoOfSize);
+            $("#CatalogueLine_NoOfColor").val(_NoOfColor);
+            $("#CatalogueLine_VendorDesignNo").val(_VendorDesignNo);
+            $("#CatalogueLine_Yarn").val(_Yarn);
+            $("#CatalogueLine_Weave1").val(_Weave1);
+            $("#CatalogueLine_AvailableQty").val(_AvailableQty);
+            $("#CatalogueLine_NetRate").val(_NetRate);
+
+            x.setSelected(_Size.split(","));
+
+            $("#CatalogueLine_SubDivisionId").empty();
+            var frmData = new FormData();
+            frmData.append("nDivisionId", _DivisionId);
+            $.ajax({
+                url: "@Url.Action("GetSubDivisionByDivisionId", "Catalogue")",
+                type: "POST",
+                data: frmData,
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    console.log(res);
+                    var html = '<option value="">[Select]</option>';
+                    if (res.data != null && res.data.length > 0) {
+                        for (var i = 0; i < res.data.length; i++){
+                            html += '<option value="' + res.data[i].value + '">' + res.data[i].text +'</option>';
+                        }
+                    }
+                    $("#CatalogueLine_SubDivisionId").html(html);
+                    $("#CatalogueLine_SubDivisionId").val(_SubDivisionId);
+                },
+                error: function (err) {
+                    toastr.error(err);
+                }
+            });
+
+            var html = "";
+            var colorArray = _Color.split(",");
+            for (i = 0; i < colorArray.length; i++) {
+                html += '&nbsp;<button type="button" data-color="' + colorArray[i] + '" onclick="this.remove();" class="dot subdot" style="background-color:' + colorArray[i] + '"><i class="fas fa-times"></i></button>';
+            }
+            $("#CatalogueLine_Color").html(html);
+
+            //var imgHtml = "";
+            var imgArray = _Images.split(",");
+            //console.log(imgArray);
+            for (i = 0; i < imgArray.length; i++) {
+                //console.log(imgArray[i]);
+                var srcImg = $("#globalImgDomain").val() + imgArray[i];
+                //imgHtml += '<img src="' + srcImg + '" class="btn btn-sm add-member addImage" width="50px" height="50px">';
+
+                var img = document.createElement('img');
+                img.src = srcImg;
+                img.className = "btn btn-sm add-member addImage";
+                img.width = "50px";
+                img.height = "50px";
+                document.getElementById('divImagePreview').appendChild(img);
+            }
+
+            //$("#divImagePreview").html(imgHtml);
+            $("#CatalogueLine_Size").val("");
+
+            $("#hidMode").val("1");
+            $("#addProduct").modal("show");
+        }
+
+        function rtconfirm() {
+            if (confirm("Are you sure want to delete product ?")) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function confSubmit() {
+            if (confirm("Are you sure want to send for approval ?")) {
+                return true;
+            } else {
+                return false;
+            }
+
+           // $("#msgModal").modal("show");
+
+
+        }
+    </script>
+}

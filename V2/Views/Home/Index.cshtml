@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="float-right">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0);">V2</a>
+                        </li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Dashboard</h4>
+            </div>
+            <!--end page-title-box-->
+        </div>
+        <!--end col-->
+    </div>
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <img src="~/assets/images/catalogue.png"
+                             alt="user"
+                             class="rounded-circle thumb-xl" />
+                        <a asp-action="Index" asp-controller="Catalogue">
+                            <div class="media-body ml-3 align-self-center">
+                                <h5 class="pro-title">Catalogue</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+        <!--end col-->
+
+        <div class="col-lg-4">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <img src="~/assets/images/pendingOrders.png"
+                             alt="user"
+                             class="rounded-circle thumb-xl" />
+                        <div class="media-body ml-3 align-self-center">
+                            <h5 class="pro-title">Pending Orders</h5>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <img src="~/assets/images/payment.png"
+                             alt="user"
+                             class="rounded-circle thumb-xl" />
+                        <div class="media-body ml-3 align-self-center">
+                            <h5 class="pro-title">Payment</h5>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+        <!--end col-->
+        <div class="col-lg-4">
+            <div class="card profile-card">
+                <div class="card-body p-0">
+                    <div class="media p-3 align-items-center">
+                        <img src="~/assets/images/reports.png"
+                             alt="user"
+                             class="rounded-circle thumb-xl" />
+                        <div class="media-body ml-3 align-self-center">
+                            <h5 class="pro-title">Reports</h5>
+                        </div>
+                    </div>
+                </div>
+                <!--end card-body-->
+            </div>
+            <!--end card-->
+        </div>
+        <!--end col-->
+        <div style="
+                display: flex;
+                width: 50%;
+                justify-content: end;
+                position: absolute;
+                bottom: 1px;
+                right: 3px;
+              ">
+            <img src="~/assets/images/users/catalogue-image.png"
+                 alt=""
+                 width="100%"
+                 style="display: flex; justify-content: end" />
+        </div>
+    </div>
+</div>

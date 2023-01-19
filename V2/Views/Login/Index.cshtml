@@ -1,0 +1,121 @@
+﻿@model V2.Models.Account.Login
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/AccountLayout.cshtml";
+}
+
+<div class="login-header">
+    <div class="logo">
+        <img src="https://chatimgs.blob.core.windows.net/customerskockpitwebsite/V2_New_Logo.png"
+             alt="logo"
+             class="auth-logo"
+             width="100%" />
+    </div>
+    <div class="signupWrapper">
+        <div class="signup">
+            <p>Don't have an account?</p>
+            <a asp-action="Register" asp-controller="Login" >
+                <button class="signup-button">
+                    Sign up
+                </button>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-12 align-self-center">
+        <div class="auth-page">
+            <div class="card auth-card shadow-lg">
+                <div class="card-body">
+                    <div class="px-3">
+                        <div class="text-center auth-logo-text">
+                            <h4 class="mt-0 mb-3 mt-3">Login</h4>
+                        </div>
+                        <form class="form-horizontal auth-form my-4 pt-4"
+                              asp-action="Index" asp-controller="Login" method="post">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <div class="input-group mb-3">
+                                    <span class="auth-form-icon">
+                                        <img src="~/assets/images/user.svg"
+                                             alt=""
+                                             width="40%" />
+                                    </span>
+                                    <input type="email" class="form-control" asp-for="EmailId" id="username" placeholder="Enter username" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userpassword">Password</label>
+                                <div class="input-group mb-3">
+                                    <span class="auth-form-icon">
+                                        <img src="~/assets/images/padlock.svg"
+                                             alt=""
+                                             width="40%" />
+                                    </span>
+                                    <input type="password" asp-for="Password" class="form-control" id="userpassword" placeholder="Enter password" />
+                                </div>
+                            </div>
+                            <!--end form-group-->
+                            @*<div class="form-group row mt-4">
+                                    <div class="col-sm-6">
+                                        <div class="custom-control custom-switch switch-success">
+                                            <input type="checkbox"
+                                                   class="custom-control-input"
+                                                   id="customSwitchSuccess" />
+                                            <label class="custom-control-label text-muted"
+                                                   for="customSwitchSuccess">Remember me</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 text-right">
+                                        <a href="auth-recover-pw.html"
+                                           class="font-13"
+                                           style="color: #df4134">
+                                            <img src="~/assets/images/padlockRed.svg"
+                                                 alt=""
+                                                 style="margin-bottom: 4px" />
+                                            Forgot password?
+                                        </a>
+                                    </div>
+                                </div>*@
+
+                            <div class="form-group mb-0 row">
+                                <div class="col-12 mt-2">
+                                    <button class="login-button btn-round btn-block waves-effect waves-light"
+                                            type="submit" onclick="return validate()">
+                                        Log In
+                                        <img src="~/assets/images/enter.svg" alt="" />
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            iniControl();
+        });
+
+        function iniControl() {
+            $('#username').removeClass('invalid');
+            $('#userpassword').removeClass('invalid');
+        }
+
+        function validate() {
+            if ($('#username').val() == '') {
+                $('#username').addClass('invalid');
+                return false;
+            } else if ($('#userpassword').val() == '') {
+                $('#userpassword').addClass('invalid');
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,507 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>V2-@ViewData["Title"]</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta content="Premium Multipurpose Admin & Dashboard Template"
+          name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/assets/images/V2_New_Logo.ico" />
+
+    <!-- DataTables -->
+    <link href="~/plugins/datatables/dataTables.bootstrap4.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="~/plugins/datatables/buttons.bootstrap4.min.css"
+          rel="stylesheet"
+          type="text/css" />
+
+    <!-- App css -->
+    <link href="~/assets/css/bootstrap.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="~/assets/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/assets/css/metisMenu.min.css"
+          rel="stylesheet"
+          type="text/css" />
+    <link href="~/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet"
+          href="http://cdnjs.cloudflare.com/ajax/libs/slim-select/2.3.3/slimselect.min.css"
+          integrity="sha512-86AAQTMI9h7lDWrBftXUdLF0o9I2bNP3y+zGTtm47eYHCwO/h7X82QrYZmIJ9jDvBsK6/uPERlAAyxXefIjwsw=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.min.css">
+    <style>
+
+        .left-sidenav-menu li:not(:last-child) {
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        .left-sidenav-menu li > a:hover {
+            color: rgba(244, 42, 37, 1);
+            font-weight: 600;
+        }
+
+        .btn-addmore {
+            background: linear-gradient( 14deg, rgba(223, 65, 52, 1) 0%, rgba(223, 65, 52, 1) );
+            color: #fff;
+            box-shadow: 0 7px 14px 0 rgba(223, 65, 52, 1) 0%;
+            border: none;
+            display: inline-block;
+            font-weight: 400;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.845rem;
+            line-height: 1.8;
+            border-radius: 0.25rem;
+        }
+
+        .metismenu li a {
+            display: flex !important;
+            justify-content: revert !important;
+        }
+
+            .metismenu li a img {
+                width: 20px;
+                margin-right: 1rem;
+            }
+
+        .badge {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            font-size: 15px !important;
+            line-height: 24px;
+        }
+
+        .edit {
+            color: #df4134;
+        }
+
+            .edit:hover {
+                color: #df4134;
+            }
+
+        .fa-edit:before {
+            color: #df4134;
+        }
+
+        .media-body:not(:last-child) {
+            border-inline-end: 2px solid #eaf0f7;
+        }
+
+        .table td {
+            /* font: normal normal 600 20px/30px Poppins; */
+            font-size: 13px;
+            line-height: 30px;
+            /*font-weight: 600;*/
+            letter-spacing: 0px;
+            color: #000000;
+            opacity: 1;
+        }
+
+        .table thead th {
+            white-space: nowrap;
+        }
+
+        .left-sidenav-menu li.mm-active > a > span {
+            color: #fff;
+        }
+
+        .metismenu li a.active {
+            color: #de4132;
+            font-weight: 600;
+        }
+
+        #datatable {
+            border: unset;
+            margin-bottom: unset;
+        }
+
+            #datatable > thead {
+                background-color: unset;
+            }
+
+            #datatable td tr th thead tbody {
+                border: 1px solid #eaf0f7;
+            }
+
+            #datatable > thead th {
+                border-bottom: unset;
+            }
+
+            #datatable th {
+                border-top: unset !important;
+                text-align: left
+            }
+
+            #datatable td {
+                border-top: unset;
+                padding-top: unset;
+                text-align: center;
+            }
+
+            #datatable > thead tr th,
+            #datatable thead td {
+                border-bottom-width: unset;
+                padding-bottom: unset;
+            }
+
+                
+
+        .tableCard .card .card-body {
+            /*width: 75vw !important;*/
+        }
+
+        .table-responsive {
+            width: calc(100vw - 370px);
+            padding-left: 59px;
+            /* padding-top: 20px; */
+        }
+
+        .profile-card .pro-title {
+            font-size: 18px;
+            line-height: 35px;
+            letter-spacing: 0px;
+            color: #7493a8;
+            opacity: 1;
+        }
+
+        .table-bordered tbody tr td table tbody tr td {
+            border: unset;
+            padding-bottom: 0%;
+        }
+
+        .table-bordered tbody tr td table {
+            margin-bottom: 0%;
+        }
+
+        .profile-card .pro-title {
+            font-size: clamp(12px, 1vw, 14px);
+            line-height: unset;
+            margin: 0%;
+        }
+
+        .media-body p {
+            margin-bottom: 0%;
+        }
+
+        .card-body {
+            padding: unset;
+        }
+
+        .badge {
+            font-size: 12px !important;
+            line-height: 24px;
+        }
+
+        .left-sidenav-menu li.mm-active > a {
+            color: #fff;
+            background: unset;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-radius: 4px;
+        }
+
+            .left-sidenav-menu li.mm-active > a > span {
+                color: #de4132;
+                font-weight: 600 !important;
+            }
+
+           /* .left-sidenav-menu li.mm-active > a > img:nth-child(1) {
+                display: none !important;
+            }
+
+            .left-sidenav-menu li.mm-active > a > img:nth-child(2) {
+                display: block !important;
+            }
+
+        .left-sidenav-menu li > a > img:nth-child(1) {
+            display: block;
+        }
+
+        .left-sidenav-menu li > a > img:nth-child(2) {
+            display: none;
+        }*/
+
+        body {
+            overflow: hidden;
+        }
+
+        .modal.show .modal-dialog {
+            width: 85%;
+            max-width: 85%;
+        }
+
+        .btn-close {
+            border-radius: 50%;
+            border: 1px solid white;
+            background: white;
+        }
+
+        .fa-times:before {
+            color: #5b5b5b;
+        }
+
+        #modal {
+            padding-right: unset !important;
+        }
+
+        .modal-header {
+            padding: 0.3rem 1rem;
+        }
+
+        .submitBtnWrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .addImage {
+            width: 45px;
+            height: 45px;
+            background: #dcdcdc 0% 0% no-repeat padding-box;
+            border: 2px solid #ffffff;
+            border-radius: 28px;
+            opacity: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+            .addImage .fa-times {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                width: 15px;
+                height: 15px;
+                background: #fcebea 0% 0% no-repeat padding-box;
+                opacity: 1;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .addImage .fa-times:before {
+                    color: #de4132 !important;
+                    font-size: 8px;
+                }
+
+            .addImage .fa-plus:before {
+                color: #5b5b5b;
+                font-size: 14px;
+            }
+
+        .modal-body {
+            background-color: #ffffff;
+        }
+
+        .addImage:focus,
+        .addImage.focus {
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .img-group {
+            display: flex;
+        }
+
+        @@media screen and (min-width: 1200px) {
+            .tableCard .card .card-body {
+                /*width: 80vw;*/
+            }
+
+            .table-responsive {
+                width: calc(100vw - 384px);
+                padding-left: 59px;
+                /* padding-top: 20px; */
+            }
+
+            .cardScrollWrapper {
+                overflow-y: auto;
+                height: 55vh;
+            }
+        }
+
+        .dot {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            border-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="hidden" id="globalImgDomain" value="@ViewBag.ImageDomain" />
+    <!-- Top Bar Start -->
+    <div class="topbar">
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <a href="@(Url.Action((string)Context.Session.GetString("ROLE") == "SUPERADMIN"
+                 ? "SuperAdmin"
+                 : (string)Context.Session.GetString("ROLE") == "ADMIN"
+                 ? "Admin"
+                 : "Index","Home"))" class="logo">
+                <span>
+                    <img src="https://chatimgs.blob.core.windows.net/customerskockpitwebsite/V2_New_Logo.png" alt="" width="55%" />
+                </span>
+            </a>
+        </div>
+        <!--end logo-->
+        <!-- Navbar -->
+        <nav class="navbar-custom">
+            <ul class="list-unstyled topbar-nav float-right mb-0">
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light nav-user"
+                       data-toggle="dropdown"
+                       href="#"
+                       role="button"
+                       aria-haspopup="false"
+                       aria-expanded="false">
+                        <img src="~/assets/images/users/user-1.png"
+                             alt="profile-user"
+                             class="rounded-circle" />
+                        <span class="ml-1 nav-user-name hidden-sm">
+                            @((string)Context.Session.GetString("EMAIL")) <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#"><i class="ti-user text-muted mr-2"></i> Profile</a>
+                        <a class="dropdown-item" href="#"><i class="ti-wallet text-muted mr-2"></i> Change Password</a>
+                        <div class="dropdown-divider mb-0"></div>
+                        <a class="dropdown-item" asp-action="Logout" asp-controller="Login"><i class="ti-power-off text-muted mr-2"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <!--end topbar-nav-->
+
+            <ul class="list-unstyled topbar-nav mb-0">
+                <li>
+                    <button class="nav-link button-menu-mobile waves-effect waves-light">
+                        <i class="ti-menu nav-icon"></i>
+                    </button>
+                </li>
+                <li class="hide-phone app-search">
+                    <form role="search" class="">
+                        <input type="text"
+                               id="AllCompo"
+                               placeholder="Search..."
+                               class="form-control ui-autocomplete-input"
+                               autocomplete="off" />
+                        <a href=""><i class="fas fa-search"></i></a>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <!-- end navbar-->
+    </div>
+    <!-- Top Bar End -->
+    <!-- Left Sidenav -->
+    <div class="left-sidenav">
+        <ul class="metismenu left-sidenav-menu">
+            <li>
+                <a href="@(Url.Action((string)Context.Session.GetString("ROLE") == "SUPERADMIN"
+                 ? "SuperAdmin"
+                 : (string)Context.Session.GetString("ROLE") == "ADMIN"
+                 ? "Admin"
+                 : "Index","Home"))" class="logo">
+                    <img src="~/assets/images/home.svg" alt="" />
+                    <span>Home</span>
+                </a>
+            </li>
+
+            @if (string.Equals(Context.Session.GetString("ROLE"), "SUPERADMIN", StringComparison.OrdinalIgnoreCase))
+            {
+                <li><a asp-action="Index" asp-controller="Size"><img src="~/assets/images/home.svg" alt="" /><span>Size</span></a></li>
+                <li><a asp-action="Index" asp-controller="Division"><img src="~/assets/images/home.svg" alt="" /><span>Division</span></a></li>
+                <li><a asp-action="Index" asp-controller="SubDivision"><img src="~/assets/images/home.svg" alt="" /><span>Sub Division</span></a></li>
+                <li><a asp-action="Index" asp-controller="MajorCategory"><img src="~/assets/images/home.svg" alt="" /><span>Major Category</span></a></li>
+                <li><a asp-action="Index" asp-controller="ApprovalTemplate"><img src="~/assets/images/home.svg" alt="" /><span>Approval Template</span></a></li>
+            }
+
+            @if (string.Equals(Context.Session.GetString("ROLE"), "VENDOR", StringComparison.OrdinalIgnoreCase))
+            {
+                <li><a asp-action="Index" asp-controller="Catalogue"><img src="~/assets/images/catalogue.svg" alt="" /><span>Catalogue</span></a></li>
+                <li><a href="#"><img src="~/assets/images/pendingOrders.svg" alt="" /><span>Pending Orders</span></a></li>
+                <li><a href="#"><img src="~/assets/images/income.svg" alt="" /><span>Payments</span></a></li>
+                <li><a href="#"><img src="~/assets/images/report.svg" alt="" /><span>Reports</span></a></li>
+            }
+
+            @if (string.Equals(Context.Session.GetString("ROLE"), "ADMIN", StringComparison.OrdinalIgnoreCase))
+            {
+                <li><a asp-action="Index" asp-controller="CatalogueApproval"><img src="~/assets/images/Vendor.svg" alt="" /><span>Vendor List</span></a></li>
+                <li><a href="#"><img src="~/assets/images/pendingOrders.svg" alt="" /><span>Pending Orders</span></a></li>
+                <li><a href="#"><img src="~/assets/images/income.svg" alt="" /><span>Payments</span></a></li>
+                <li><a href="#"><img src="~/assets/images/report.svg" alt="" /><span>Reports</span></a></li>
+            }
+        </ul>
+    </div>
+    <!-- end left-sidenav-->
+
+    <div class="page-wrapper">
+        <!-- Page Content-->
+        <div class="page-content">
+            @RenderBody()
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page-wrapper -->
+    <!-- jQuery  -->
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/js/metismenu.min.js"></script>
+    <script src="~/assets/js/waves.js"></script>
+    <script src="~/assets/js/feather.min.js"></script>
+    <script src="~/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/assets/js/jquery-ui.min.js"></script>
+
+    <!-- Required datatable js -->
+    <script src="~/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/slim-select/2.3.3/slimselect.min.js"
+            integrity="sha512-Zctam6/8fL9JoaXfPqOC8N+h1Jh9GGen4TtEzSKlgMu9wrwx93O5kiFNub6He1ibfaoemXAXnu1p4VqOecV09g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"></script>
+
+    <script src="~/plugins/toastr/toastr.min.js"></script>
+
+    <!-- App js -->
+    <script src="~/assets/js/app.js"></script>
+    @await Component.InvokeAsync("NToastNotify")
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+        function postForm(path, params, method) {
+            method = method || 'post';
+            var form = document.createElement('form');
+            form.setAttribute('method', method);
+            form.setAttribute('action', path);
+            for (var key in params) {
+                if (params.hasOwnProperty(key)) {
+                    var hiddenField = document.createElement('input');
+                    hiddenField.setAttribute('type', 'hidden');
+                    hiddenField.setAttribute('name', key);
+                    hiddenField.setAttribute('value', params[key]);
+                    form.appendChild(hiddenField);
+                }
+            }
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+
+
+</body>
+</html>
