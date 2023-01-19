@@ -364,6 +364,7 @@
                                                                 <th>Category</th>
                                                                 <th>No.ofPiece</th>
                                                                 <th>Price/Piece</th>
+                                                                <th>Available Qty</th>
                                                                 <th>Status</th>
                                                                 <th>Actions</th>
                                                             </tr>
@@ -373,34 +374,35 @@
                                                             {
                                                                 foreach (var prod in item.CatalogueLines)
                                                                 {
-                                                                    <tr data-toggle="collapse"
-                                                                        class="accordion-toggle">
-                                                                        <td>
-                                                                            #@prod.ProductCode-@prod.ProductName <br />
-                                                                        </td>
-                                                                        <td>@prod.Division.DivisionName</td>
-                                                                        <td>@prod.SubDivision.SubDivisionName</td>
-                                                                        <td>@prod.MajorCategory.MajorCategoryName</td>
-                                                                        <td>@prod.NoOfPiece</td>
-                                                                        <td>@prod.PricePerPiece</td>
-                                                                        <td>
-                                                                            <span class="badge badge-md badge-soft-@(prod.Status.StatusId == 4 ? "danger" : prod.Status.StatusId == 3 ? "success" : prod.Status.StatusId == 2 ? "pink" : "secondary")">
-                                                                                @(prod.Status.StatusId == 4 ? "Rejected" : prod.Status.StatusId == 3 ? "Approved" : prod.Status.StatusId == 2 ? "Pending" : "Draft")
-                                                                            </span>
-                                                                        </td>
-                                                                        <td>
-                                                                            <a asp-action="Details" asp-controller="CatalogueApproval" 
-                                                                               asp-route-cHId="@item.CatalogueHeaderId"
-                                                                               asp-route-lId="@prod.CatalogueLinesId"
-                                                                               asp-route-aId="@(prod.CatalogueLinesApprovals.First().CatalogueLinesApprovalId)"
-                                                                               asp-route-vId="@ViewBag.VendorId"
-                                                                               class="view-product-eye">
-                                                                                <img src="~/assets/images/view.svg"
-                                                                                     alt=""
-                                                                                     width="60%" />
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
+                                                            <tr data-toggle="collapse"
+                                                                class="accordion-toggle">
+                                                                <td>
+                                                                    #@prod.ProductCode-@prod.ProductName <br />
+                                                                </td>
+                                                                <td>@prod.Division.DivisionName</td>
+                                                                <td>@prod.SubDivision.SubDivisionName</td>
+                                                                <td>@prod.MajorCategory.MajorCategoryName</td>
+                                                                <td>@prod.NoOfPiece</td>
+                                                                <td>@prod.PricePerPiece</td>
+                                                                <td>@prod.AvailableQty</td>
+                                                                <td>
+                                                                    <span class="badge badge-md badge-soft-@(prod.Status.StatusId == 4 ? "danger" : prod.Status.StatusId == 3 ? "success" : prod.Status.StatusId == 2 ? "pink" : "secondary")">
+                                                                        @(prod.Status.StatusId == 4 ? "Rejected" : prod.Status.StatusId == 3 ? "Approved" : prod.Status.StatusId == 2 ? "Pending" : "Draft")
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <a asp-action="Details" asp-controller="CatalogueApproval"
+                                                                       asp-route-cHId="@item.CatalogueHeaderId"
+                                                                       asp-route-lId="@prod.CatalogueLinesId"
+                                                                       asp-route-aId="@(prod.CatalogueLinesApprovals.First().CatalogueLinesApprovalId)"
+                                                                       asp-route-vId="@ViewBag.VendorId"
+                                                                       class="view-product-eye">
+                                                                        <img src="~/assets/images/view.svg"
+                                                                             alt=""
+                                                                             width="60%" />
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
                                                                 }
                                                             }
                                                         </tbody>

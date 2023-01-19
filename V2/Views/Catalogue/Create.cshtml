@@ -481,7 +481,8 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-lg-3">
-                            <label for="date">Product Code</label>
+                            @*<label for="date">Product Code</label>*@
+                            <label for="date"> MC Code</label>
                             <input type="text" asp-for="CatalogueLine.ProductCode" class="form-control" />
                         </div>
                         <div class="form-group col-lg-3">
@@ -499,7 +500,8 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-lg-3">
-                            <label for="date">No. of  Piece(s)</label>
+                            @*<label for="date">No. of  Piece(s)</label>*@
+                            <label for="date">MC Decription </label>
                             <input type="number" asp-for="CatalogueLine.NoOfPiece" class="form-control" />
                         </div>
                         <div class="form-group col-lg-3">
@@ -516,19 +518,30 @@
                         </div>
                     </div>
                     <div class="row">
+                                                            @*<div class="form-group col-lg-3">
+                                                            <label for="pro-start-date">Color</label>
+                                                            <div style="display:flex">
+                                                            <input type="color" class="form-control" id="colorPicker" style="width: 20%;" />
+                                                            &nbsp;
+                                                            <div id="CatalogueLine_Color">
+                                                            </div>
+                                                            </div>
+                                                            </div>
+                                                            <div class="form-group col-lg-3">
+                                                            <label for="date">No. of Color(s)</label>
+                                                            <input type="number" asp-for="CatalogueLine.NoOfColor" class="form-control" />
+                                                            </div>*@
                         <div class="form-group col-lg-3">
-                            <label for="pro-start-date">Color</label>
-                            <div style="display:flex">
-                                <input type="color" class="form-control" id="colorPicker" style="width: 20%;" />
-                                &nbsp;
-                                <div id="CatalogueLine_Color">
-                                </div>
-                            </div>
+                            <label for="color">Colors</label><br />
+                            <select asp-for="CatalogueLine.Color" asp-items="ViewBag.ColorList" multiple>
+                            </select>
                         </div>
                         <div class="form-group col-lg-3">
                             <label for="date">No. of Color(s)</label>
                             <input type="number" asp-for="CatalogueLine.NoOfColor" class="form-control" />
                         </div>
+
+
                         <div class="form-group col-lg-3">
                             <label for="pricePiece">Vendor Size</label><br />
                             <select asp-for="CatalogueLine.Size" asp-items="ViewBag.SizeList" multiple>
@@ -610,6 +623,19 @@
             },
         });
 
+        var y = new SlimSelect({
+            select: "#CatalogueLine_Color",
+            settings: {
+                showSearch: false,
+                allowDeselect: true,
+                maxValuesShown: 2, // Default 20
+                maxValuesMessage: "{number} values selected", // Default '{number} selected'
+            },
+        });
+
+
+
+
         $(document).ready(function () {
            // $("#msgModal").modal("show");
             @if(Model.CatalogueLines.Count() == 0)
@@ -647,12 +673,12 @@
             });
         });
 
-        $("#colorPicker").on("change", function () {
-            var _pickerValue = $(this).val();
-            var _oldHtml = $("#CatalogueLine_Color").html();
-            var html = _oldHtml + '&nbsp;<button type="button" data-color="' + _pickerValue + '" onclick="this.remove();" class="dot subdot" style="background-color:' + _pickerValue + '"><i class="fas fa-times"></i></button>';
-            $("#CatalogueLine_Color").html(html);
-        });
+        //$("#colorPicker").on("change", function () {
+        //    var _pickerValue = $(this).val();
+        //    var _oldHtml = $("#CatalogueLine_Color").html();
+        //    var html = _oldHtml + '&nbsp;<button type="button" data-color="' + _pickerValue + '" onclick="this.remove();" class="dot subdot" style="background-color:' + _pickerValue + '"><i class="fas fa-times"></i></button>';
+        //    $("#CatalogueLine_Color").html(html);
+        //});
 
         $('#ProductImages').on('change', function () {
             $("#divImagePreview").empty();
@@ -696,11 +722,15 @@
             var _VendorDesignNo = $("#CatalogueLine_VendorDesignNo").val();
             var _Yarn = $("#CatalogueLine_Yarn").val();
             var _Weave1 = $("#CatalogueLine_Weave1").val();
-            var _Color = [];
-            var btns = $("#CatalogueLine_Color").find("button");
-            for (var i = 0; i < btns.length; i++) {
-                _Color.push($(btns[i]).attr("data-color"));
-            }
+            //var _Color = [];
+            //var btns = $("#CatalogueLine_Color").find("button");
+            //for (var i = 0; i < btns.length; i++) {
+            //    _Color.push($(btns[i]).attr("data-color"));
+            //}
+            var _Color = y.getSelected() // Will return an array of strings
+            console.log(_Color)
+            //parseInt($("#CatalogueLine_Size").val());
+
             var images = $('#ProductImages')[0].files;
 
             if (_DivisionId == "") {
@@ -720,7 +750,8 @@
                 return;
             }
             else if (_ProductCode == "") {
-                toastr.error('Please mention product code');
+                /*toastr.error('Please mention product code');*/
+                toastr.error('Please mention MC Code');
                 return;
             }
             else if (_VendorDesignNo == "") {
@@ -736,7 +767,9 @@
                 return;
             }
             else if (_NoOfPiece == "" || _NoOfPiece == 0) {
-                toastr.error('Please mention No. of piece');
+                /* toastr.error('Please mention No. of piece');*/
+                 toastr.error('Please mention MC Decription');
+                
                 return;
             }
             else if (_PricePerPiece == "" || _PricePerPiece == 0) {
@@ -841,6 +874,7 @@
             $("#CatalogueLine_ProductName").val("");
             $("#CatalogueLine_ProductCode").val("");
             $("#CatalogueLine_Size").val("");
+            $("#CatalogueLine_Color").val("");
             $("#CatalogueLine_NoOfPiece").val(0);
             $("#CatalogueLine_PricePerPiece").val(0);
             $("#CatalogueLine_NoOfPrint").val(0);
@@ -960,6 +994,7 @@
 
             //$("#divImagePreview").html(imgHtml);
             $("#CatalogueLine_Size").val("");
+            $("#CatalogueLine_Color").val("");
 
             $("#hidMode").val("1");
             $("#addProduct").modal("show");

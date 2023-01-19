@@ -157,6 +157,23 @@ namespace V2.Controllers
             }
             return new Tuple<List<SelectListItem>, List<Size>>(list, sizes);
         }
+        public async Task<Tuple<List<SelectListItem>, List<Color>>> ListColor()
+        {
+            List<Color> colors = new List<Color>();
+            List<SelectListItem> list = new List<SelectListItem>();
+            ApiManager apiManager = new ApiManager(ServiceUrl + "/api/Color");
+            var res = await apiManager.Get();
+            if (res.Item1 == System.Net.HttpStatusCode.OK)
+            {
+                colors = JsonConvert.DeserializeObject<List<Color>>(res.Item2);
+                list = colors.Where(c => c.IsActive == true).Select(c => new SelectListItem
+                {
+                    Text = c.ColorName,
+                    Value = c.ColorCode.ToString()
+                }).ToList();
+            }
+            return new Tuple<List<SelectListItem>, List<Color>>(list, colors);
+        }
         #endregion
     }
 }

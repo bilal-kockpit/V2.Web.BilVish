@@ -27,14 +27,28 @@ namespace V2.Controllers.Catalogue
         }
 
         public async Task<IActionResult> Index(int nCId = 0)
-        {
+            {
             if (!ISADMIN) return RedirectToAction("Logout", "Login");
 
             List<VendorGetForApproval> vendorGetForApprovals = new List<VendorGetForApproval>();
             apiManager = new ApiManager(ServiceUrl + $"/api/Approval/getVendorForAppr/{USERID}", AUTHTOKEN);
             var res = await apiManager.Get();
-            if (res.Item1 == System.Net.HttpStatusCode.OK)
+            if (res.Item1 == System.Net.HttpStatusCode.OK) {
                 vendorGetForApprovals = JsonConvert.DeserializeObject<List<VendorGetForApproval>>(res.Item2);
+
+                vendorGetForApprovals = vendorGetForApprovals.GroupBy(c => new
+                {
+                    c.CityId,
+                    c.EmailId,
+                    c.GSTIN,
+                    c.Mobile,
+                    c.StateName,
+                    c.StatusId, 
+                    //c.UploadDate,
+                    c.UserId,
+                    c.UserName
+                }).Select(o => o.FirstOrDefault()).ToList();
+            }
             else
                 toastNotification.AddErrorToastMessage(res.Item2);
 
@@ -188,6 +202,7 @@ namespace V2.Controllers.Catalogue
             ViewBag.VendorId = vId;
             ViewBag.VendorDetails = GetVendorDeteils(catalogueHeader.UserId);
             ViewBag.SizeList = ListSize().Result.Item2;
+            ViewBag.ColorList = ListColor().Result.Item2;
             return View(catalogueHeader);
         }
 

@@ -46,8 +46,9 @@ namespace V2.Controllers.Catalogue
             ViewBag.DivisionList = await ListDivision();
             ViewBag.MajorCatList = await ListMajorCategory();
             ViewBag.SizeList = ListSize().Result.Item1;
+            ViewBag.ColorList = ListColor().Result.Item1;
 
-            CatalogueHeader catalogueHeader = new CatalogueHeader();
+                CatalogueHeader catalogueHeader = new CatalogueHeader();
             CatalogueLines catalogueLines = new CatalogueLines();
             if (Id != null && Id != 0)
             {
@@ -112,6 +113,8 @@ namespace V2.Controllers.Catalogue
             ViewBag.LineId = lineId;
             ViewBag.MainCall = lMainCall;
             ViewBag.SizeList = ListSize().Result.Item2;
+            ViewBag.ColorList = ListColor().Result.Item2;
+
             return View(catalogueHeader);
         }
 
