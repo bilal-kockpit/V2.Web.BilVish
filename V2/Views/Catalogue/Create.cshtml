@@ -475,7 +475,8 @@
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
-                            <label for="pro-start-date">Product Name</label>
+                           @* <label for="pro-start-date">Product Name</label>*@
+                            <label for="date">MC Decription </label>
                             <input type="text" asp-for="CatalogueLine.ProductName" class="form-control" />
                         </div>
                     </div>
@@ -499,11 +500,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-lg-3">
-                            @*<label for="date">No. of  Piece(s)</label>*@
-                            <label for="date">MC Decription </label>
+                       @* <div class="form-group col-lg-3">
+                            <label for="date">No. of  Piece(s)</label>                           
                             <input type="number" asp-for="CatalogueLine.NoOfPiece" class="form-control" />
-                        </div>
+                        </div>*@
                         <div class="form-group col-lg-3">
                             <label for="date">Price Per Piece</label>
                             <input type="number" asp-for="CatalogueLine.PricePerPiece" class="form-control" />
@@ -714,9 +714,10 @@
             var _ProductCode = $("#CatalogueLine_ProductCode").val();
 
             var _Size = x.getSelected() // Will return an array of strings
-            console.log(_Size)
+            //console.log(_Size)
             //parseInt($("#CatalogueLine_Size").val());
-            var _NoOfPiece = parseInt($("#CatalogueLine_NoOfPiece").val());
+            //var _NoOfPiece = parseInt($("#CatalogueLine_NoOfPiece").val());
+            var _NoOfPiece = 0;
             var _PricePerPiece = parseFloat($("#CatalogueLine_PricePerPiece").val());
             var _NoOfPrint = parseInt($("#CatalogueLine_NoOfPrint").val());
             var _NoOfSize = parseInt($("#CatalogueLine_NoOfSize").val());
@@ -771,12 +772,12 @@
                 toastr.error('Please mention Weave-1');
                 return;
             }
-            else if (_NoOfPiece == "" || _NoOfPiece == 0) {
-                /* toastr.error('Please mention No. of piece');*/
-                 toastr.error('Please mention MC Decription');
+            //else if (_NoOfPiece == "" || _NoOfPiece == 0) {
+            //    /* toastr.error('Please mention No. of piece');*/
+            //     toastr.error('Please mention MC Decription');
                 
-                return;
-            }
+            //    return;
+            //}
             else if (_PricePerPiece == "" || _PricePerPiece == 0) {
                 toastr.error('Please mention price per piece');
                 return;
@@ -880,7 +881,7 @@
             $("#CatalogueLine_ProductCode").val("");
             $("#CatalogueLine_Size").val("");
             $("#CatalogueLine_Color").val("");
-            $("#CatalogueLine_NoOfPiece").val(0);
+            //$("#CatalogueLine_NoOfPiece").val(0);
             $("#CatalogueLine_PricePerPiece").val(0);
             $("#CatalogueLine_NoOfPrint").val(0);
             $("#CatalogueLine_NoOfSize").val(0);
@@ -917,7 +918,7 @@
             var _VendorDesignNo = $(btn).attr("d-VendorDesignNo");
             var _Yarn = $(btn).attr("d-Yarn");
             var _Weave1 = $(btn).attr("d-Weave1");
-            var _NoOfPiece = $(btn).attr("d-NoOfPiece");
+            //var _NoOfPiece = $(btn).attr("d-NoOfPiece");
             var _PricePerPiece = $(btn).attr("d-PricePerPiece");
             var _NetRate = $(btn).attr("d-NetRate");
             var _AvailableQty = $(btn).attr("d-AvailableQty");
@@ -936,7 +937,7 @@
             $("#CatalogueLine_MajorCategoryId").val(_MajorCategoryId);
             $("#CatalogueLine_ProductName").val(_ProductName);
             $("#CatalogueLine_ProductCode").val(_ProductCode);
-            $("#CatalogueLine_NoOfPiece").val(_NoOfPiece);
+            //$("#CatalogueLine_NoOfPiece").val(_NoOfPiece);
             $("#CatalogueLine_PricePerPiece").val(_PricePerPiece);
             $("#CatalogueLine_NoOfPrint").val(_NoOfPrint);
             $("#CatalogueLine_NoOfSize").val(_NoOfSize);

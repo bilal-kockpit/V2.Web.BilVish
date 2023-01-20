@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using V2.Models.Master;
 
 namespace V2.Models.Account
 {
@@ -44,5 +45,6 @@ namespace V2.Models.Account
         [RegularExpression(@"^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$", ErrorMessage = "Invalid GST Number.")]
         [StringLength(15)]
         public String GSTIN { get; set; }
+        public virtual City City { get; set; }
     }
 }

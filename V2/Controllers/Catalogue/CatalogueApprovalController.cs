@@ -43,11 +43,11 @@ namespace V2.Controllers.Catalogue
                     c.GSTIN,
                     c.Mobile,
                     c.StateName,
-                    c.StatusId, 
-                   
+                    c.StatusId,                    
                     c.UserId,
                     c.UserName
                 }).Select(o => o.FirstOrDefault()).ToList();
+               // TempData["VendorDetails"] = vendorGetForApprovals;
             }
             else
                 toastNotification.AddErrorToastMessage(res.Item2);
@@ -59,7 +59,7 @@ namespace V2.Controllers.Catalogue
                 vendorGetForApprovals = vendorGetForApprovals.Where(c => c.CityId == nCId).ToList();
             }
 
-            TempData["vendorname"] = vendorGetForApprovals;
+            //TempData["vendorname"] = vendorGetForApprovals;
             
 
             ViewBag.SelectedCityId = (nCId == 0) ? "" : nCId.ToString();
@@ -203,12 +203,12 @@ namespace V2.Controllers.Catalogue
             ViewBag.ApprovalId = aId;
             ViewBag.LineId = lId;
             ViewBag.VendorId = vId;
-            ViewBag.VendorDetails = GetVendorDeteils(catalogueHeader.UserId);
+            ViewBag.VendorDetails = await GetVendorDeteils(catalogueHeader.UserId);
             ViewBag.SizeList = ListSize().Result.Item2;
             ViewBag.ColorList = ListColor().Result.Item2;
 
 
-            ViewBag.vendorname = TempData["vendorname"];
+            //ViewBag.vendorname = TempData["vendorname"];
 
             return View(catalogueHeader);
         }
