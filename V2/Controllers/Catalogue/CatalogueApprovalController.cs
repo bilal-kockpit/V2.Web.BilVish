@@ -44,7 +44,7 @@ namespace V2.Controllers.Catalogue
                     c.Mobile,
                     c.StateName,
                     c.StatusId, 
-                    //c.UploadDate,
+                   
                     c.UserId,
                     c.UserName
                 }).Select(o => o.FirstOrDefault()).ToList();
@@ -58,6 +58,9 @@ namespace V2.Controllers.Catalogue
             {
                 vendorGetForApprovals = vendorGetForApprovals.Where(c => c.CityId == nCId).ToList();
             }
+
+            TempData["vendorname"] = vendorGetForApprovals;
+            
 
             ViewBag.SelectedCityId = (nCId == 0) ? "" : nCId.ToString();
             return View(vendorGetForApprovals);
@@ -203,6 +206,10 @@ namespace V2.Controllers.Catalogue
             ViewBag.VendorDetails = GetVendorDeteils(catalogueHeader.UserId);
             ViewBag.SizeList = ListSize().Result.Item2;
             ViewBag.ColorList = ListColor().Result.Item2;
+
+
+            ViewBag.vendorname = TempData["vendorname"];
+
             return View(catalogueHeader);
         }
 

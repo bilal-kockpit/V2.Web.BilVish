@@ -531,9 +531,14 @@
                                                             <label for="date">No. of Color(s)</label>
                                                             <input type="number" asp-for="CatalogueLine.NoOfColor" class="form-control" />
                                                             </div>*@
-                        <div class="form-group col-lg-3">
-                            <label for="color">Colors</label><br />
+                        @*<div class="form-group col-lg-3">
+                            <label>Colors</label><br />
                             <select asp-for="CatalogueLine.Color" asp-items="ViewBag.ColorList" multiple>
+                            </select>
+                        </div>*@
+                        <div class="form-group col-lg-3">
+                            <label>Color</label><br />
+                            <select asp-for="CatalogueLine.Color" asp-items="@ViewBag.ColorList" multiple>
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
@@ -544,7 +549,7 @@
 
                         <div class="form-group col-lg-3">
                             <label for="pricePiece">Vendor Size</label><br />
-                            <select asp-for="CatalogueLine.Size" asp-items="ViewBag.SizeList" multiple>
+                            <select asp-for="CatalogueLine.Size" asp-items="@ViewBag.SizeList" multiple>
                             </select>
                         </div>
                         <div class="form-group col-lg-3">
@@ -885,7 +890,7 @@
             $("#CatalogueLine_Weave1").val("");
             $("#CatalogueLine_AvailableQty").val(0);
             $("#CatalogueLine_NetRate").val(0);
-            $("#CatalogueLine_Color").empty();
+            //$("#CatalogueLine_Color").empty();
             $('#ProductImages').val("");
             $("#divImagePreview").empty();
             x.setSelected("");
@@ -919,10 +924,10 @@
             var _NoOfColor = $(btn).attr("d-NoOfColor");
             var _NoOfSize = $(btn).attr("d-NoOfSize");
             var _NoOfPrint = $(btn).attr("d-NoOfPrint");
-
+            var _Color = $(btn).attr("d-Color");
             var _Size = $(btn).attr("d-Size");
             var _Images = $(btn).attr("d-Images");
-            var _Color = $(btn).attr("d-Color");
+            
 
             $("#CatalogueLine_CatalogueHeaderId").val(_CatalogueHeaderId);
             $("#CatalogueLine_CatalogueLinesId").val(_CatalogueLinesId);
@@ -943,6 +948,7 @@
             $("#CatalogueLine_NetRate").val(_NetRate);
 
             x.setSelected(_Size.split(","));
+            y.setSelected(_Color.split(","));
 
             $("#CatalogueLine_SubDivisionId").empty();
             var frmData = new FormData();

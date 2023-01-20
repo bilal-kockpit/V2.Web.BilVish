@@ -169,7 +169,8 @@ namespace V2.Controllers
                 list = colors.Where(c => c.IsActive == true).Select(c => new SelectListItem
                 {
                     Text = c.ColorName,
-                    Value = c.ColorCode.ToString()
+                   // Value = c.ColorCode.ToString()
+                   Value= c.ColorCode.ToString()
                 }).ToList();
             }
             return new Tuple<List<SelectListItem>, List<Color>>(list, colors);

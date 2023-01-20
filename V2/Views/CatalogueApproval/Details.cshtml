@@ -2,11 +2,17 @@
 @using V2.Models.Master;
 @using System.Linq;
 @using V2.Models.Account;
+@using V2.Models.SPResponse
 @model V2.Models.Catalogue.CatalogueHeader
 @{
     ViewData["Title"] = "Detail";
     var catalogueLine = Model.CatalogueLines.Where(c => c.CatalogueLinesId == ViewBag.LineId).FirstOrDefault();
     var sizeList = (List<Size>)ViewBag.SizeList;
+
+
+    var vendor = (VendorGetForApproval)ViewBag.vendorname;
+
+
     //var vendor = (User)ViewBag.VendorDetails;
 }
 
@@ -275,7 +281,8 @@
                             <div class="col-md-10">
                                 @*vendor details from viebag*@
                                 <div class="vendor-name">
-                                    <h3>STORE DETAILS</h3>
+                                    @*<h3>STORE DETAILS</h3>*@
+                                    <h3>@vendor.UserName</h3>
                                 </div>
                                 <div class="vendor-details-wrapper">
                                     <div class="vendor-details">
